@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  inputs,
+  pkgs,
   ...
 }:
 
@@ -13,7 +13,7 @@ in
   options.elysium.desktops.kando.enable = lib.mkEnableOption "Kando Pie Menu";
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    home.packages = [ inputs.master.legacyPackages."x86_64-linux".kando ];
+    home.packages = [ pkgs.kando ];
 
     elysium.desktops.exec-once = [ "kando" ];
   };
