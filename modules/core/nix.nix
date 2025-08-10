@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  outputs,
   ...
 }:
 
@@ -8,6 +9,7 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
     inputs.fenix.overlays.default
+    outputs.overlays.default
   ];
   nix.settings = {
     experimental-features = [
@@ -43,6 +45,6 @@
 
   programs.nh = {
     enable = true;
-    flake = "/home/${config.hostSpec.username}/.elysium";
+    flake = "/home/${config.hostSpec.username}/.els";
   };
 }

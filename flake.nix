@@ -44,6 +44,22 @@
         })
         |> builtins.listToAttrs;
 
+      packages = forAllSystems (
+        system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [ self.overlays.default ];
+          };
+        in
+        nixpkgs.lib.packagesFromDirectoryRecursive {
+          callPackage = nixpkgs.lib.callPackageWith pkgs;
+          directory = ./pkgs/common;
+        }
+      );
+
+      overlays = import ./overlays { inherit inputs; };
+
       formatter = forAllSystems (
         system:
         system
