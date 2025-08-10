@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 
@@ -16,11 +15,8 @@ in
       default = cfg'.enable;
     };
 
-  config = lib.mkIf (cfg'.enable && cfg.enable) {
-    programs.television.channels.nix = {
-      metadata.name = "nix";
-      source.command = "${lib.getExe pkgs.nix-search-tv} print";
-      preview.command = "${lib.getExe pkgs.nix-search-tv} preview {}";
-    };
+  config.programs = lib.mkIf (cfg'.enable && cfg.enable) {
+    nix-search-tv.enable = true;
+    television.channels.nix-search-tv.metadata.name = lib.mkForce "nix";
   };
 }
