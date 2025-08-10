@@ -15,8 +15,6 @@ in
     enable = true;
 
     settings = {
-      async = true;
-
       blocks = [
         {
           newline = true;
