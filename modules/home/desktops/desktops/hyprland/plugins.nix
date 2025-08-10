@@ -16,17 +16,17 @@ in
     };
   };
 
-  config = lib.mkIf (cfg'.enable && cfg.enable) {
+  config = lib.mkIf cfg'.enable {
     wayland.windowManager.hyprland = {
-      plugins = lib.optional (cfg.dynamicCursor.enable) pkgs.hyprlandPlugins.hypr-dynamic-cursors;
-    };
+      plugins = lib.optional cfg.dynamicCursor.enable pkgs.hyprlandPlugins.hypr-dynamic-cursors;
 
-    settings.plugin = {
-      dynamic-cursors = {
-        enabled = cfg.dynamicCursor.enable;
-        mode = "tilt";
-        tilt.limit = 2500;
-        shake.enabled = false;
+      settings.plugin = {
+        dynamic-cursors = {
+          enabled = cfg.dynamicCursor.enable;
+          mode = "tilt";
+          tilt.limit = 2500;
+          shake.enabled = false;
+        };
       };
     };
   };

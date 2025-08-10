@@ -10,6 +10,8 @@ let
   cfg = cfg'.desktops.hyprland;
 in
 {
+  imports = lib.elysium.scanPaths ./.;
+
   options.elysium.desktops.desktops.hyprland = {
     enable = lib.mkEnableOption "Hyprland Window manager";
   };
@@ -169,9 +171,9 @@ in
           "SUPER, V, exec, cliphist list | rofi -dmenu -p  -display-columns 2 | cliphist decode | wl-copy"
           "SUPER, Space, global, :main-menu"
 
-          ", PRINT, exec, hyprshot -m output -o ~/Media/Images"
-          "SUPER, PRINT, exec, hyprshot -m window -o ~/Media/Images"
-          "SHIFT + SUPER, PRINT, exec, hyprshot -m region -o ~/Media/Images"
+          ", PRINT, exec, hyprshot -m output -o ${config.xdg.userDirs.pictures}/ss"
+          "SUPER, PRINT, exec, hyprshot -m window -o ${config.xdg.userDirs.pictures}/ss"
+          "SHIFT + SUPER, PRINT, exec, hyprshot -m region -o ~${config.xdg.userDirs.pictures}/ss"
 
           # Manage layout
 
@@ -309,15 +311,9 @@ in
         windowrulev2 = [
           "suppressevent maximize, class:.*"
           "float, class:org.freedesktop.impl.portal.desktop.kde"
+          "size 80% 80%, class:org.freedesktop.impl.portal.desktop.kde"
+          "center, class:org.freedesktop.impl.portal.desktop.kde"
           "nofocus, class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
-          "tile,title:^(top-bar)$"
-          "tile,class:^(top-bar)$"
-        ];
-
-        # Persist the shell and browser workspaces
-        workspace = [
-          "1, persistent:1"
-          "2, persistent:1"
         ];
       };
 
