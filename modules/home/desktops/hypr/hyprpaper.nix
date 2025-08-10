@@ -15,7 +15,6 @@ in
   };
 
   config = lib.mkIf (cfg''.enable && cfg'.enable && cfg.enable) {
-    elysium.desktops.exec-once = [ "hyprpaper" ];
     services.hyprpaper = {
       enable = true;
       settings = {
