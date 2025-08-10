@@ -5,9 +5,12 @@
     enable = true;
     userDirs = {
       enable = true;
-      pictures = "${config.home.homeDirectory}/Media/Images";
-      music = "${config.home.homeDirectory}/Media/Music";
-      videos = "${config.home.homeDirectory}/Media/Music";
+
+      documents = "${config.home.homeDirectory}/doc";
+      download = "${config.home.homeDirectory}/dwn";
+      music = "${config.home.homeDirectory}/med/msc";
+      pictures = "${config.home.homeDirectory}/med/img";
+      videos = "${config.home.homeDirectory}/med/vid";
     };
   };
 }

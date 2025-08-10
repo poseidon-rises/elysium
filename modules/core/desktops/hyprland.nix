@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   hmCfg = config.hm.elysium.desktops.desktops.hyprland;
@@ -13,6 +18,9 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    programs.hyprland.enable = true;
+    programs.hyprland = {
+      enable = true;
+      portalPackage = pkgs.kdePackages.xdg-desktop-portal-kde;
+    };
   };
 }
