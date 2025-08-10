@@ -2,19 +2,22 @@ set quiet := true
 
 # List available recipes
 list:
-    just --list
+	just --list
 
 # Builds the config and discards the output
 build:
-    nh os build
+	nh os build
 
 # Lint the configuration
 lint:
-    nix fmt .
+	nix fmt .
 
 # Lint the config and build
 check: lint build
 
 # Builds the configuration and applies it without saving 
 test:
-    nh os test
+  nh os test
+
+rebuild: lint
+	nh os switch
