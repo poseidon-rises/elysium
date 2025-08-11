@@ -15,9 +15,8 @@ in
     lib.mkEnableOption "tuigreet";
 
   config = lib.mkIf (cfg''.enable && cfg'.enable && cfg.enable) {
-    environment.systemPackages = [ pkgs.tuigreet ];
     services.greetd.settings.default_session.command = builtins.concatStringsSep " " [
-      (lib.getExe pkgs.greetd.tuigreet)
+      (lib.getExe pkgs.tuigreet)
       "--time"
       "--user-menu"
       "--remember"
