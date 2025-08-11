@@ -1,8 +1,9 @@
 {
-  inputs,
-  pkgs,
   config,
+  inputs,
   lib,
+  outputs,
+  pkgs,
   ...
 }:
 let
@@ -30,14 +31,13 @@ in
   home-manager = {
     extraSpecialArgs = {
       inherit inputs vauxhall;
-      hostSpec = config.hostSpec;
+			inherit (config) hostSpec;
     };
 
     users.${hostSpec.username}.imports =
       lib.optional (!hostSpec.isMinimal) [
         (lib.elysium.relativeToRoot "home/${hostSpec.username}/${hostSpec.hostName}.nix")
-        (lib.elysium.relativeToRoot "modules/home")
-        inputs.zen-browser.homeModules.default
+        outputs.homeManagerModules
       ]
       |> lib.flatten;
   };

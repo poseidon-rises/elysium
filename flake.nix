@@ -37,12 +37,20 @@
             };
             modules = [
               ./hosts/nixos/${host}
-              ./modules/core
-              ./modules/host-spec.nix
+              outputs.nixosModules
             ];
           };
         })
         |> builtins.listToAttrs;
+
+      nixosModules.imports = [
+        ./modules/core
+        ./modules/host-spec.nix
+      ];
+
+			homeManagerModules.imports = [
+				./modules/home
+			];
 
       packages = forAllSystems (
         system:

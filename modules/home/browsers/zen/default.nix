@@ -1,5 +1,6 @@
 {
   config,
+	inputs,
   lib,
   ...
 }:
@@ -9,6 +10,9 @@ let
   cfg = cfg'.browsers.zen;
 in
 {
+	imports = [
+		inputs.zen-browser.homeModules.default
+	];
   options.elysium.browsers.browsers.zen.enable = lib.mkEnableOption "Zen Browser";
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
