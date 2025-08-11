@@ -24,7 +24,7 @@ writeShellApplication {
       notify-send "$@"
       echo "$@"
     }
-    dir="$HOME/media/videos/screenrecs"
+    dir="$HOME/med/vid/scr"
     [ -d "$dir" ] || mkdir -p "$dir"
     filename="$dir/$(date +%y.%m.%d-%H:%M).mp4"
 

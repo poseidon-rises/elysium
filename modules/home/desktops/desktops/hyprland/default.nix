@@ -174,6 +174,7 @@ in
           ", PRINT, exec, hyprshot -m output -o ${config.xdg.userDirs.pictures}/ss"
           "SUPER, PRINT, exec, hyprshot -m window -o ${config.xdg.userDirs.pictures}/ss"
           "SHIFT + SUPER, PRINT, exec, hyprshot -m region -o ~${config.xdg.userDirs.pictures}/ss"
+          "ALT + SUPER, PRINT, exec, hyprcorder.sh"
 
           # Manage layout
 
