@@ -6,11 +6,13 @@
 }:
 
 let
-  cfg' = config.elysium.development;
-  cfg = cfg'.languages.nix;
+  cfg' = config.elysium.development.languages;
+  cfg = cfg'.nix;
 in
 {
-  options.elysium.development.languages.nix.enable = lib.mkEnableOption "Nix Dev";
+  options.elysium.development.languages.nix.enable = lib.mkEnableOption "Nix Dev" // {
+		default = cfg'.enable;
+	};
 
   config = lib.mkIf cfg.enable {
     home.packages = [

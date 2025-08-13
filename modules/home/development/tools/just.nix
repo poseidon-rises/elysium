@@ -6,11 +6,11 @@
 }:
 
 let
-  cfg' = config.elysium.development;
+  cfg' = config.elysium.development.tools;
   cfg = cfg'.just;
 in
 {
-  options.elysium.development.just.enable = lib.mkEnableOption "Just command runner" // {
+  options.elysium.development.tools.just.enable = lib.mkEnableOption "Just command runner" // {
     default = cfg'.enable;
   };
 

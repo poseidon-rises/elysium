@@ -6,11 +6,11 @@
 }:
 
 let
-  cfg' = config.elysium.development;
+  cfg' = config.elysium.development.tools;
   cfg = cfg'.sqlite;
 in
 {
-  options.elysium.development.sqlite.enable = lib.mkEnableOption "SQLite" // {
+  options.elysium.development.tools.sqlite.enable = lib.mkEnableOption "SQLite" // {
     default = cfg'.enable;
   };
 

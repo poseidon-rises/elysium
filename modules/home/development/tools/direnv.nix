@@ -1,11 +1,11 @@
 { config, lib, ... }:
 
 let
-  cfg' = config.elysium.development;
+  cfg' = config.elysium.development.tools;
   cfg = cfg'.direnv;
 in
 {
-  options.elysium.development.direnv = {
+  options.elysium.development.tools.direnv = {
     enable = lib.mkEnableOption "Direnv" // {
       default = cfg'.enable;
     };

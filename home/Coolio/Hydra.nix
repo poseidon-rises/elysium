@@ -5,9 +5,7 @@
     desktops.desktops.niri.enable = true;
 
     development = {
-      languages.nix.enable = true;
-      languages.lua.enable = true;
-      languages.rust.enable = true;
+      languages.python.enable = false;
     };
 
     programs = {
