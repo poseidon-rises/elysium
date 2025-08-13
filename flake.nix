@@ -15,7 +15,15 @@
         #"aarch64-linux"
       ];
 
-      lib = nixpkgs.lib.extend (self: super: { elysium = import ./lib { inherit (nixpkgs) lib; }; });
+      lib = nixpkgs.lib.extend (
+        self: super: {
+          elysium = import ./lib {
+            inherit (nixpkgs) lib;
+          };
+
+          inherit (inputs.nvf.lib) nvim;
+        }
+      );
 
       vauxhall = import ./vauxhall.nix;
     in
@@ -48,9 +56,9 @@
         ./modules/host-spec.nix
       ];
 
-			homeManagerModules.imports = [
-				./modules/home
-			];
+      homeManagerModules.imports = [
+        ./modules/home
+      ];
 
       packages = forAllSystems (
         system:
