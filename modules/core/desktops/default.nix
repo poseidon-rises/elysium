@@ -1,13 +1,13 @@
 { config, lib, ... }:
 
 let
-  hmCfg = config.hm.elysium.desktops;
+	anyUser = lib.elysium.anyUserEnables [ "elysium" "desktops" "enable" ] config;
 in
 {
   imports = lib.elysium.scanPaths ./.;
 
   options.elysium.desktops.enable = lib.mkEnableOption "desktops" // {
-    default = hmCfg.enable;
+    default = anyUser;
   };
 
 }

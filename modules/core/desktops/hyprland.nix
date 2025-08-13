@@ -6,14 +6,15 @@
 }:
 
 let
-  hmCfg = config.hm.elysium.desktops.desktops.hyprland;
+	anyUser = lib.elysium.anyUserEnables [ "elysium" "desktops" "desktops" "hyprland" "enable" ] config;
+		
   cfg' = config.elysium.desktops;
   cfg = cfg'.desktops.hyprland;
 in
 {
   options.elysium.desktops.desktops.hyprland = {
     enable = lib.mkEnableOption "Hyprland" // {
-      default = hmCfg.enable;
+      default = anyUser;
     };
   };
 

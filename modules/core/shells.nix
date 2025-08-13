@@ -1,7 +1,8 @@
 { config, lib, ... }:
 
 let
-  hmCfg = config.hm.elysium.shells.shells;
+	anyUserFish = lib.elysium.anyUserEnables [ "elysium" "shells" "shells" "fish" "enable" ] config;
+	anyUserZsh = lib.elysium.anyUserEnables [ "elysium" "shells" "shells" "zsh" "enable" ] config;
   cfg = config.elysium.shells;
 in
 {
@@ -16,11 +17,11 @@ in
 
   options.elysium.shells.shells = {
     zsh.enable = lib.mkEnableOption "Zsh" // {
-      default = hmCfg.zsh.enable;
+      default = anyUserZsh;
     };
 
     fish.enable = lib.mkEnableOption "Fish" // {
-      default = hmCfg.fish.enable;
+      default = anyUserFish;
     };
   };
 

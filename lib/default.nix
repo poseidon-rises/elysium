@@ -1,6 +1,9 @@
-{ lib, ... }:
 {
+  lib,
+  ...
+}:
 
+{
   relativeToRoot = lib.path.append ../.;
 
   scanPaths =
@@ -13,12 +16,11 @@
     |> builtins.attrNames
     |> builtins.map (f: "${path}/${f}");
 
-  # TODO: fix
-  # anyUserHasOption = optionPath:
-  # let
-  #   users = home-manager.users;
-  # in
-  #  lib.any (userCfg: lib.attrByPath optionPath false userCfg) (lib.attrValues users);
+	anyUserEnables = 
+		optionPath: config: 
+			lib.forEach (builtins.attrValues config.home-manager.users) (user:
+				lib.getAttrFromPath optionPath user
+			) |> lib.any (x: x);
 
 }
 // lib.mergeAttrsList [
