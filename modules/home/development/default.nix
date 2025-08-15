@@ -1,9 +1,11 @@
-{ hostSpec, lib, ... }:
+{ chaos, lib, ... }:
 
-{
+let
+
+in {
   imports = lib.elysium.scanPaths ./.;
 
 	options.elysium.development.enable = lib.mkEnableOption "Development" // {
-    default = hostSpec.isWork;
+    default = lib.elem "Work" chaos.aspects;
   };
 }

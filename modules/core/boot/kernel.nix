@@ -14,7 +14,7 @@ in
     kernel = lib.mkOption {
       type = lib.types.raw;
       default =
-        if config.hostSpec.isDesktop then pkgs.linuxPackages_zen else pkgs.linuxPackages.kernels.default;
+        if (lib.elem "Graphical" config.chaos.aspects) then pkgs.linuxPackages_zen else pkgs.linuxPackages.kernels.default;
     };
   };
 

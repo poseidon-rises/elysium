@@ -10,7 +10,7 @@ let
 in
 {
   options.elysium.management.geolocation.enable = lib.mkEnableOption "Geolocation" // {
-    default = !config.hostSpec.isServer;
+    default = lib.elem "Mobile" config.chaos.aspects;
   };
 
   config = lib.mkIf cfg.enable {

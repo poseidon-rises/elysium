@@ -5,8 +5,9 @@
 
 {
   imports = lib.elysium.scanPaths ./.;
-  hostSpec = {
+  chaos = {
     hostName = "Eurynomos";
+    
   };
 
   # Just don't change unless absolutly necessary

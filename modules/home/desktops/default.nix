@@ -1,6 +1,6 @@
 {
   config,
-  hostSpec,
+  chaos,
   lib,
   ...
 }:
@@ -21,7 +21,7 @@ in
 
   options.elysium.desktops = {
     enable = lib.mkEnableOption "desktops" // {
-      default = hostSpec.isDesktop;
+      default = lib.elem "Graphical" chaos.aspects;
     };
 
     exec-once = lib.mkOption {

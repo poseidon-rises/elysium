@@ -1,11 +1,11 @@
-{ config, lib, ... }:
+{ chaos, config, lib, ... }:
 
 let
   cfg = config.elysium.services.mpd;
 in
 {
   options.elysium.services.mpd.enable = lib.mkEnableOption "MPD music" // {
-    default = config.hostSpec.isDesktop;
+    default = lib.elem "Graphical" chaos;
   };
 
   config = lib.mkIf cfg.enable {

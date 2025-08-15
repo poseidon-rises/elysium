@@ -10,7 +10,7 @@ in
 {
   options.elysium.management.time = {
     automatic-zone = lib.mkEnableOption "Automatic timezone" // {
-      default = config.hostSpec.isDesktop;
+      default = lib.elem "Mobile" config.chaos.aspects;
     };
   };
 

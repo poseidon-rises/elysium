@@ -11,14 +11,14 @@ in
 {
   options.elysium.services.clamav = {
     enable = lib.mkEnableOption "ClamAV" // {
-      default = config.hostSpec.isDesktop;
+      default = lib.elem "Graphical" config.chaos.aspects;
     };
     daemon.enable = lib.mkEnableOption "ClamAV daemon" // {
-      default = config.hostSpec.isDesktop;
+      default = cfg.enable;
     };
 
     scanner.enable = lib.mkEnableOption "ClamAV scanner" // {
-      default = true;
+      default = cfg.enable;
     };
   };
 

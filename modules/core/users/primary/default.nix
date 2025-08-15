@@ -7,14 +7,14 @@
   ...
 }:
 let
-  hostSpec = config.hostSpec;
+  chaos = config.chaos;
   vauxhall = import (lib.elysium.relativeToRoot "vauxhall.nix");
 in
 {
-  users.users.${hostSpec.username} = {
+  users.users.${chaos.username} = {
     isNormalUser = true;
-    name = hostSpec.username;
-    group = hostSpec.username;
+    name = chaos.username;
+    group = chaos.username;
     uid = 1000;
     extraGroups = [ "wheel" ];
     shell = pkgs.fish;
@@ -24,20 +24,21 @@ in
     );
   };
 
-  users.groups.${hostSpec.username} = {
+  users.groups.${chaos.username} = {
     gid = 1000;
   };
 
   home-manager = {
     extraSpecialArgs = {
       inherit inputs vauxhall;
-			inherit (config) hostSpec;
+      inherit (config) chaos;
     };
 
-    users.${hostSpec.username}.imports =
-      lib.optional (!hostSpec.isMinimal) [
-        (lib.elysium.relativeToRoot "home/${hostSpec.username}/${hostSpec.hostName}.nix")
-        outputs.homeManagerModules
+    users.${chaos.username}.imports =
+      lib.optional (!lib.elem "Minimal" chaos.aspects) [
+        (lib.elysium.relativeToRoot "home/${chaos.username}/${chaos.hostName}.nix")
+        (lib.elysium.relativeToRoot "home/${chaos.username}/nysa")
+        outputs.homeManagerModules.elysium
       ]
       |> lib.flatten;
   };

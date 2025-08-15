@@ -10,7 +10,7 @@ in
     };
 
     waitOnline = lib.mkEnableOption "Pause the boot process to wait for Internet to connet." // {
-      default = config.hostSpec.isServer;
+      default = lib.elem "Server" config.chaos.aspects;
     };
   };
 

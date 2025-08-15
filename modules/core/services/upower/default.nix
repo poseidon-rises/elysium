@@ -5,7 +5,7 @@ let
 in
 {
   options.elysium.services.upower.enable = lib.mkEnableOption "Upower" // {
-    default = config.hostSpec.isDesktop;
+    default = lib.elem "Graphical" config.chaos.aspects;
   };
 
   config = lib.mkIf cfg.enable {

@@ -10,7 +10,7 @@
     let
       inherit (self) outputs;
 
-      forAllSystems = nixpkgs.lib.genAttrs [
+      forAllSystems = lib.genAttrs [
         "x86_64-linux"
         #"aarch64-linux"
       ];
@@ -45,18 +45,18 @@
             };
             modules = [
               ./hosts/nixos/${host}
-              outputs.nixosModules
+              outputs.nixosModules.elysium
             ];
           };
         })
         |> builtins.listToAttrs;
 
-      nixosModules.imports = [
+      nixosModules.elysium.imports = [
         ./modules/core
-        ./modules/host-spec.nix
+        ./modules/chaos.nix
       ];
 
-      homeManagerModules.imports = [
+      homeManagerModules.elysium.imports = [
         ./modules/home
       ];
 

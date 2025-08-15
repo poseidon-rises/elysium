@@ -10,7 +10,7 @@ let
 in
 {
   options.elysium.services.libinput.enable = lib.mkEnableOption "libinput" // {
-    default = config.hostSpec.isDesktop;
+    default = lib.elem "Laptop" config.chaos.aspects;
   };
 
   config = lib.mkIf cfg.enable {

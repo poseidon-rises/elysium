@@ -15,6 +15,9 @@ in
         co = "checkout";
         undo = "reset --hard HEAD~1";
       };
+
+      userName = "Poseidon";
+      userEmail = "softwaredevelopment.stingray177@passinbox.com";
     };
   };
 }
