@@ -11,6 +11,13 @@
       "Work"
       "Mobile"
     ];
+
+		monitors = [{
+			connector = "eDP-1";
+			width = 768;
+			height = 1366;
+			refreshRate = 60;
+		}];
   };
 
   elysium.networking.bluetooth.enable = true;

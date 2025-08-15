@@ -1,22 +1,25 @@
 { lib, ... }:
 
+let
+  inherit (lib) types mkOption;
+in
 {
   options.chaos = {
-    username = lib.mkOption {
-      type = lib.types.str;
+    username = mkOption {
+      type = types.str;
       description = "The username of the host admin";
       default = "Poseidon";
     };
 
-    hostName = lib.mkOption {
-      type = lib.types.str;
+    hostName = mkOption {
+      type = types.str;
       description = "The hostname of the host";
     };
 
     # These help decide defaults for options around the config
-    aspects = lib.mkOption {
-      type = lib.types.listOf (
-        lib.types.enum [
+    aspects = mkOption {
+      type = types.listOf (
+        types.enum [
           "Desktop"
           "Laptop"
           "Server"
@@ -28,36 +31,52 @@
       );
     };
 
-    monitors = lib.mkOption {
-      type = lib.types.submodule {
-        name = lib.mkOption {
-          type = lib.types.str;
-          example = "HDMI-A-1";
-          description = "The name of the monitor device";
-        };
+    monitors = mkOption {
+      type = types.listOf (
+        types.submodule {
+          options = {
+            connector = mkOption {
+              type = types.str;
+              example = "HDMI-A-1";
+              description = "The name of the monitor device";
+            };
 
-        width = lib.mkOption {
-          type = lib.types.int;
-          example = 1920;
-        };
+            width = mkOption {
+              type = types.int;
+              example = 1920;
+            };
 
-        height = lib.mkOption {
-          type = lib.types.int;
-          example = 1080;
-        };
+            height = mkOption {
+              type = types.int;
+              example = 1080;
+            };
 
-        x = lib.mkOption {
-          type = lib.types.int;
-          default = 0;
-          example = 1920;
-        };
+            refreshRate = mkOption {
+              type = types.int;
+              default = 60;
+              example = 120;
+            };
 
-        y = lib.mkOption {
-          type = lib.types.int;
-          default = 0;
-          example = 1080;
-        };
-      };
+            x = mkOption {
+              type = types.int;
+              default = 0;
+              example = 1920;
+            };
+
+            y = mkOption {
+              type = types.int;
+              default = 0;
+              example = 1080;
+            };
+
+            scale = mkOption {
+              type = types.either (types.enum [ "auto" ]) types.float;
+              default = "auto";
+              description = "Scale of the display.";
+            };
+          };
+        }
+      );
     };
 
     networking = {

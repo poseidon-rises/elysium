@@ -26,7 +26,25 @@ in
       activate-linux.enable = true;
       kando.enable = true;
       playerctl.enable = true;
+
+      desktops.hyprland = {
+        workspaces = [
+          {
+            name = "hidden";
+            special = true;
+          }
+          {
+            name = "notebook";
+            special = true;
+          }
+        ]
+        ++ lib.forEach (lib.range 1 10) (id: {
+          name = toString id;
+          default = id == 1;
+        });
+      };
     };
+
     wayland.windowManager.hyprland = {
       enable = true;
 
