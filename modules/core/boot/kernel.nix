@@ -18,7 +18,8 @@ in
     };
   };
 
-  config.boot = {
-    kernelPackages = cfg.kernel;
+  config = {
+    boot.kernelPackages = cfg.kernel;
+    services.logrotate.checkConfig = false;
   };
 }

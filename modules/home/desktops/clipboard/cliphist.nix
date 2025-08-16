@@ -12,6 +12,5 @@ in
 
   config = lib.mkIf (cfg''.enable && cfg'.enable && cfg.enable) {
     services.cliphist.enable = true;
-    elysium.desktops.exec-once = [ "wl-paste --watch cliphist store" ];
   };
 }

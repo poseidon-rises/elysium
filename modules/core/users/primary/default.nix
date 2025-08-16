@@ -9,37 +9,45 @@
 let
   chaos = config.chaos;
   vauxhall = import (lib.elysium.relativeToRoot "vauxhall.nix");
+
+	cfg = config.elysium.users.users.primary;
 in
 {
-  users.users.${chaos.username} = {
-    isNormalUser = true;
-    name = chaos.username;
-    group = chaos.username;
-    uid = 1000;
-    extraGroups = [ "wheel" ];
-    shell = pkgs.fish;
+	options.elysium.users.users.primary.enable = lib.mkEnableOption "primary user" // {
+		default = true;
+	};
 
-    openssh.authorizedKeys.keys = lib.lists.forEach lib.filesystem.listFilesRecursive ./keys (
-      key: builtins.readFile key
-    );
-  };
+	config = lib.mkIf cfg.enable {
+		users.users.${chaos.username} = {
+			isNormalUser = true;
+			name = chaos.username;
+			group = chaos.username;
+			uid = 1000;
+			extraGroups = [ "wheel" ];
+			shell = pkgs.fish;
 
-  users.groups.${chaos.username} = {
-    gid = 1000;
-  };
+			openssh.authorizedKeys.keys = lib.lists.forEach lib.filesystem.listFilesRecursive ./keys (
+				key: builtins.readFile key
+			);
+		};
 
-  home-manager = {
-    extraSpecialArgs = {
-      inherit inputs vauxhall;
-      inherit (config) chaos;
-    };
+		users.groups.${chaos.username} = {
+			gid = 1000;
+		};
 
-    users.${chaos.username}.imports =
-      lib.optional (!lib.elem "Minimal" chaos.aspects) [
-        (lib.elysium.relativeToRoot "home/${chaos.username}/${chaos.hostName}.nix")
-        (lib.elysium.relativeToRoot "home/${chaos.username}/nysa")
-        outputs.homeManagerModules.elysium
-      ]
-      |> lib.flatten;
-  };
+		home-manager = {
+			extraSpecialArgs = {
+				inherit inputs vauxhall;
+				inherit (config) chaos;
+			};
+
+			users.${chaos.username}.imports =
+				lib.optional (!lib.elem "Minimal" chaos.aspects) [
+					(lib.elysium.relativeToRoot "home/${chaos.username}/${chaos.hostName}.nix")
+					(lib.elysium.relativeToRoot "home/${chaos.username}/nysa")
+					outputs.homeManagerModules.elysium
+				]
+				|> lib.flatten;
+		};
+	};
 }

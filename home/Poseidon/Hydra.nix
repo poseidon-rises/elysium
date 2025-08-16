@@ -2,6 +2,7 @@
 
 {
   nysa.Poseidon.enable = true;
+
   elysium = {
     desktops.desktops.niri.enable = true;
 

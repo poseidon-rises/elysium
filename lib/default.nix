@@ -16,11 +16,12 @@
     |> builtins.attrNames
     |> builtins.map (f: "${path}/${f}");
 
-	anyUserEnables = 
-		optionPath: config: 
-			lib.forEach (builtins.attrValues config.home-manager.users) (user:
-				lib.getAttrFromPath optionPath user
-			) |> lib.any (x: x);
+  anyUserEnables =
+    optionPath: config:
+    lib.forEach (builtins.attrValues config.home-manager.users) (
+      user: if lib.hasAttrByPath optionPath user then lib.getAttrFromPath optionPath user else false
+    )
+    |> lib.any (x: x);
 
 }
 // lib.mergeAttrsList [

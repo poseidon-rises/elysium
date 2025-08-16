@@ -1,13 +1,12 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 
 let
-	anyUser = lib.elysium.anyUserEnables [ "elysium" "desktops" "desktops" "hyprland" "enable" ] config;
-		
+  anyUser = lib.elysium.anyUserEnables [ "elysium" "desktops" "desktops" "hyprland" "enable" ] config;
+
   cfg' = config.elysium.desktops;
   cfg = cfg'.desktops.hyprland;
 in
@@ -19,9 +18,6 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    programs.hyprland = {
-      enable = true;
-      portalPackage = pkgs.kdePackages.xdg-desktop-portal-kde;
-    };
+    programs.hyprland.enable = true;
   };
 }

@@ -70,8 +70,8 @@ in
             };
 
             scale = mkOption {
-              type = types.either (types.enum [ "auto" ]) types.float;
-              default = "auto";
+              type = types.float;
+              default = 1.0;
               description = "Scale of the display.";
             };
           };

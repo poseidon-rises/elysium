@@ -16,7 +16,5 @@ in
       enable = true;
       style = ./style.css;
     };
-
-    elysium.desktops.exec-once = [ "swaync" ];
   };
 }

@@ -8,12 +8,14 @@
 
 let
   cfg' = config.nysa.Poseidon;
-  cfg = cfg'.hyprland;
+  cfg = cfg'.desktops.desktops.hyprland;
 in
 {
-  options.nysa.Poseidon.hyprland.enable = lib.mkEnableOption "Poseideon's hyprland config" // {
-    default = cfg'.enable;
-  };
+  options.nysa.Poseidon.desktops.desktops.hyprland.enable =
+    lib.mkEnableOption "Poseideon's hyprland config"
+    // {
+      default = cfg'.enable;
+    };
 
   config = lib.mkIf cfg.enable {
     systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
@@ -39,7 +41,7 @@ in
           }
         ]
         ++ lib.forEach (lib.range 1 10) (id: {
-          name = toString id;
+          inherit id;
           default = id == 1;
         });
       };
@@ -189,9 +191,6 @@ in
           "ALT + SUPER, PRINT, exec, hyprcorder.sh"
 
           # Manage layout
-
-          "SHIFT + SUPER, P, pseudo," # dwindle
-          "SUPER, J, togglesplit," # dwindleb
           "SUPER, F, togglefloating,"
 
           # Kill the selected window with Mod + Q
@@ -350,7 +349,6 @@ in
       systemd.enable = true;
 
       plugins = [
-        pkgs.hyprlandPlugins.hypr-dynamic-cursors
         pkgs.hyprlandPlugins.hyprscrolling
       ];
     };

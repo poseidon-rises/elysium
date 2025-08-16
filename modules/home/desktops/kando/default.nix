@@ -15,6 +15,8 @@ in
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     home.packages = [ pkgs.kando ];
 
-    elysium.desktops.exec-once = [ "kando" ];
+    elysium.desktops.exec-once.kando = {
+			command = lib.getExe pkgs.kando;
+		};
   };
 }

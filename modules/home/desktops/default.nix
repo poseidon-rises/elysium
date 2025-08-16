@@ -25,17 +25,33 @@ in
     };
 
     exec-once = lib.mkOption {
-      default = [ ];
-      example = [ "hyprpaper" ];
-      description = ''
-        Commands to run automatically at session startup. May be ran before 
-        the desktop is fully started.
-      '';
-      type = lib.types.listOf lib.types.str;
+      type = lib.types.attrsOf (lib.types.submodule {
+        options = {
+          command = lib.mkOption {
+            type = lib.types.str;
+          };
+
+          args = lib.mkOption {
+            type = lib.types.listOf lib.types.str;
+						default = [ ];
+          };
+        };
+      });
     };
   };
 
   config = lib.mkIf cfg.enable {
     xdg.portal.xdgOpenUsePortal = true;
+
+		systemd.user.services = builtins.mapAttrs (name: command: {
+			Install = {
+				WantedBy = [ "xdg-desktop-autostart.target" ];
+			};
+
+			Service = {
+				Type = "exec";
+				ExecStart = "${command.command} ${lib.concatStringsSep " " command.args}";
+			};
+		}) cfg.exec-once;
   };
 }

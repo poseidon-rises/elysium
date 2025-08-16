@@ -19,8 +19,13 @@ in
       type = lib.types.listOf (
         lib.types.submodule {
           options = {
+            id = lib.mkOption {
+              type = lib.types.nullOr lib.types.int;
+              default = null;
+            };
             name = lib.mkOption {
-              type = lib.types.str;
+              type = lib.types.nullOr lib.types.str;
+              default = null;
             };
 
             default = lib.mkOption {
@@ -54,31 +59,31 @@ in
       enable = true;
 
       settings = {
-        inherit (cfg') exec-once;
-
-        monitor =
-          lib.forEach chaos.monitors (
-            monitor:
-            builtins.concatStringsSep ", " [
-              monitor.connector
-              "${toString monitor.width}x${toString monitor.height}@${toString monitor.refreshRate}"
-              "${toString monitor.x}x${toString monitor.y}"
-              (toString monitor.scale)
-            ]
-          )
-          ++ [ ", preferred, auto, auto" ];
+        monitor = [ ", preferred, auto, auto" ];
 
         workspace = lib.forEach cfg.workspaces (
           workspace:
-          builtins.concatStringsSep ", " (
-            [
-              (if workspace.special then "special:${workspace.name}" else "${workspace.name}")
-              "monitor:${workspace.monitor}"
-            ]
-            ++ lib.optional workspace.persist "persistent:true"
-            ++ lib.optional (workspace.monitor == (lib.head chaos.monitors).connector) "default:true"
-          )
+          lib.concatStringsSep ", " [
+            (
+              if (workspace.name == null) then
+                toString workspace.id
+              else if workspace.special then
+                "special:${workspace.name}"
+              else
+                "name:${workspace.name}"
+            )
+
+            "monitor:${workspace.monitor}"
+            "persistent:${if workspace.persist then "true" else "false"}"
+          ]
         );
+
+        monitorv2 = lib.forEach chaos.monitors (monitor: {
+          output = monitor.connector;
+          mode = "${toString monitor.width}x${toString monitor.height}@${toString monitor.refreshRate}";
+          position = "${toString monitor.x}x${toString monitor.y}";
+          scale = "${toString monitor.scale}";
+        });
       };
 
       xwayland.enable = true;
@@ -87,8 +92,14 @@ in
 
     assertions = [
       {
-        assertion = (lib.lists.findSingle (monitor: monitor.default) false false cfg.workspaces) != false;
+        assertion = (lib.lists.findSingle (workspace: workspace.default) null null cfg.workspaces) != null;
         message = "exactly one of `elysium.desktops.desktops.hyprland.workspaces.*` may set the default option";
+      }
+      {
+        assertion = builtins.all (
+          workspace: (workspace.id == null) != (workspace.name == null)
+        ) cfg.workspaces;
+        message = "every elysium.desktops.desktops.hyprland.workspaces.* must set exactly one of 'name' or 'id'";
       }
     ];
   };
