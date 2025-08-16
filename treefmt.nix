@@ -6,6 +6,8 @@
     nixfmt.enable = true;
     deadnix.enable = true;
   };
-  # yaml
+
+  # Config formats
   programs.yamlfmt.enable = true;
+	programs.jsonfmt.enable = true;
 }
