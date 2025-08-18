@@ -17,4 +17,7 @@
       utilities.enable = true;
     };
   };
+
+  # Just don't change unless absolutly necessary
+  home.stateVersion = "24.11"; # Please read the comment before changing.
 }

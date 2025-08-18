@@ -7,7 +7,7 @@
   ...
 }:
 let
-  chaos = config.chaos;
+  inherit (config) chaos;
   vauxhall = import (lib.elysium.relativeToRoot "vauxhall.nix");
 
   cfg = config.elysium.users.users.primary;

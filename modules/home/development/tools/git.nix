@@ -11,6 +11,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.git = {
       enable = true;
+
       aliases = {
         co = "checkout";
         undo = "reset --hard HEAD~1";
@@ -18,6 +19,14 @@ in
 
       userName = "Poseidon";
       userEmail = "softwaredevelopment.stingray177@passinbox.com";
+
+      signing = {
+        format = "ssh";
+        key = "~/.ssh/git_ed25519";
+        signByDefault = true;
+      };
+
+      delta.enable = true;
     };
   };
 }

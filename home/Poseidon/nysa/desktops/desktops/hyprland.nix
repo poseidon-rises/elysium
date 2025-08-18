@@ -130,9 +130,10 @@ in
           shadow = {
             enabled = true;
             range = 4;
-            render_power = 3;
+            render_power = 4;
 
-            color = "rgba(1a1a1aee)";
+            color = "rgba(${vauxhall.cyan.alpha}80)";
+            color_inactive = "rgba(00000000)";
           };
 
           # https://wiki.hyprland.org/Configuring/Variables/#blur
@@ -356,12 +357,19 @@ in
 
     xdg.portal = {
       enable = true;
-      extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
+      extraPortals = [
+        pkgs.kdePackages.xdg-desktop-portal-kde
+        pkgs.xdg-desktop-portal-hyprland
+      ];
+
       xdgOpenUsePortal = true;
 
       config = {
         common = {
-          default = [ "kde" ];
+          default = [
+            "hyprland"
+            "kde"
+          ];
         };
       };
     };

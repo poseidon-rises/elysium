@@ -19,10 +19,8 @@ in
 
   config = lib.mkIf cfg.enable {
     elysium.shells.programs.fzf.enable = lib.mkDefault true;
-
+		elysium.shells.programs.ripgrep.enable = lib.mkDefault true;
     programs.nvf = {
-      enable = true;
-
       settings.vim = {
 
         # Visuals
@@ -163,6 +161,14 @@ in
             '';
           }
         ];
+
+				notes.obsidian = {
+					enable = true;
+
+					setupOpts = {
+						
+					};
+				}
         # Other
 
         clipboard = {
