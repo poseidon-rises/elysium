@@ -34,20 +34,23 @@
         |> builtins.attrNames
         |> map (host: {
           name = host;
-          value = nixpkgs.lib.nixosSystem {
-            specialArgs = {
-              inherit
-                inputs
-                outputs
-                lib
-                vauxhall
-                ;
+          value =
+            lib.nixosSystem {
+              specialArgs = {
+                inherit
+                  inputs
+                  outputs
+                  vauxhall
+                  ;
+              };
+              modules = [
+                ./hosts/nixos/${host}
+                outputs.nixosModules.elysium
+              ];
+            }
+            // {
+              inherit inputs outputs vauxhall; # Add these to the repl environment
             };
-            modules = [
-              ./hosts/nixos/${host}
-              outputs.nixosModules.elysium
-            ];
-          };
         })
         |> builtins.listToAttrs;
 
@@ -87,15 +90,16 @@
         system:
         import ./shell.nix {
           pkgs = nixpkgs.legacyPackages.${system};
+          inherit lib;
         }
       );
     };
 
   inputs = {
 
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    master.url = "nixpkgs/master";
+    master.url = "github:NixOS/nixpkgs/master";
 
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
@@ -103,22 +107,22 @@
     };
 
     home-manager = {
-      url = "home-manager/master";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nvf = {
-      url = "github:notashelf/nvf";
+      url = "github:NotAShelf/nvf/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     sops-nix = {
-      url = "sops-nix/master";
+      url = "github:Mic92/sops-nix/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     disko = {
-      url = "disko/master";
+      url = "github:nix-community/disko/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -127,13 +131,8 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    tagstudio = {
-      url = "github:TagStudioDev/TagStudio/";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     fenix = {
-      url = "fenix/main";
+      url = "github:nix-community/fenix/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

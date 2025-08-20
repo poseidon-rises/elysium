@@ -19,7 +19,8 @@ in
 
   config = lib.mkIf cfg.enable {
     elysium.shells.programs.fzf.enable = lib.mkDefault true;
-		elysium.shells.programs.ripgrep.enable = lib.mkDefault true;
+    elysium.shells.programs.ripgrep.enable = lib.mkDefault true;
+
     programs.nvf = {
       settings.vim = {
 
@@ -55,6 +56,11 @@ in
           shiftwidth = 2;
           mouse = "";
           linebreak = true;
+          conceallevel = 1;
+        };
+
+        globals = {
+          vim_markdown_folding_disabled = 1;
         };
 
         # Programming
@@ -162,13 +168,18 @@ in
           }
         ];
 
-				notes.obsidian = {
-					enable = true;
+        notes.obsidian = {
+          enable = true;
 
-					setupOpts = {
-						
-					};
-				}
+          setupOpts = {
+            workspaces = [
+              {
+                name = "nts";
+                path = "${config.home.homeDirectory}/nts";
+              }
+            ];
+          };
+        };
         # Other
 
         clipboard = {
