@@ -22,6 +22,11 @@ in
       shellInitLast = builtins.readFile ./init-last.fish;
 
       shellAliases = cfg'.shellAliases;
+
+      shellAbbrs = {
+        ns = "nix shell --command fish";
+        nd = "nix develop --command fish";
+      };
     };
   };
 }
