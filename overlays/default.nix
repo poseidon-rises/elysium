@@ -9,7 +9,7 @@ let
     });
 
   master = final: _prev: {
-    stable = import inputs.nixpkgs-stable {
+    master = import inputs.master {
       inherit (final) system;
       config.allowUnfree = true;
     };
