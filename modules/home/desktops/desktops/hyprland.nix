@@ -10,8 +10,6 @@ let
   cfg = cfg'.desktops.hyprland;
 in
 {
-  imports = lib.elysium.scanPaths ./.;
-
   options.elysium.desktops.desktops.hyprland = {
     enable = lib.mkEnableOption "Hyprland Window manager";
 
