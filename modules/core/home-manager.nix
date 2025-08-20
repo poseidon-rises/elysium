@@ -9,5 +9,7 @@
       inputs.sops-nix.homeManagerModules.sops
       outputs.homeManagerModules.elysium
     ];
+
+    backupFileExtension = ".backup";
   };
 }
