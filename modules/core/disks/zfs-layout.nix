@@ -29,12 +29,6 @@ in
               example = true;
               type = lib.types.bool;
             };
-
-            zpool = lib.mkOption {
-              default = "zroot";
-              example = "tank";
-              type = lib.types.str;
-            };
           };
         }
       );
@@ -66,7 +60,6 @@ in
                   size = "100%";
                   content = {
                     type = "zfs";
-                    zpool = disk.zpool;
                   };
                 };
               };
