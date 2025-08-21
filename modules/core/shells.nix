@@ -32,6 +32,7 @@ in
       zsh.enable = lib.mkIf cfg.shells.zsh.enable true;
       fish.enable = lib.mkIf cfg.shells.fish.enable true;
     };
+		documentation.man.generateCaches = false;
 
     users.defaultUserShell =
       let
