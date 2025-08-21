@@ -1,4 +1,9 @@
-{ chaos, config, lib, ... }:
+{
+  chaos,
+  config,
+  lib,
+  ...
+}:
 
 let
   cfg = config.elysium.services.mpd;

@@ -1,10 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg'' = config.elysium.development.languages;
   cfg' = cfg''.dotnet;
   cfg = cfg'.csharp;
-in {
+in
+{
   options.elysium.development.languages.dotnet.csharp.enable = lib.mkEnableOption "CSharp Dev" // {
     default = cfg''.enable;
   };

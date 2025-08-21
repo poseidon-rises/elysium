@@ -11,7 +11,7 @@ in
     programs.quickshell.enable = true;
 
     elysium.desktops.exec-once.quickshell = {
-			command = lib.getExe config.programs.quickshell.package;
-		};
+      command = lib.getExe config.programs.quickshell.package;
+    };
   };
 }

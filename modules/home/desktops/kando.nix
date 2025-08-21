@@ -16,7 +16,7 @@ in
     home.packages = [ pkgs.kando ];
 
     elysium.desktops.exec-once.kando = {
-			command = lib.getExe pkgs.kando;
-		};
+      command = lib.getExe pkgs.kando;
+    };
   };
 }

@@ -25,33 +25,35 @@ in
     };
 
     exec-once = lib.mkOption {
-      type = lib.types.attrsOf (lib.types.submodule {
-        options = {
-          command = lib.mkOption {
-            type = lib.types.str;
-          };
+      type = lib.types.attrsOf (
+        lib.types.submodule {
+          options = {
+            command = lib.mkOption {
+              type = lib.types.str;
+            };
 
-          args = lib.mkOption {
-            type = lib.types.listOf lib.types.str;
-						default = [ ];
+            args = lib.mkOption {
+              type = lib.types.listOf lib.types.str;
+              default = [ ];
+            };
           };
-        };
-      });
+        }
+      );
     };
   };
 
   config = lib.mkIf cfg.enable {
     xdg.portal.xdgOpenUsePortal = true;
 
-		systemd.user.services = builtins.mapAttrs (name: command: {
-			Install = {
-				WantedBy = [ "xdg-desktop-autostart.target" ];
-			};
+    systemd.user.services = builtins.mapAttrs (_name: command: {
+      Install = {
+        WantedBy = [ "xdg-desktop-autostart.target" ];
+      };
 
-			Service = {
-				Type = "exec";
-				ExecStart = "${command.command} ${lib.concatStringsSep " " command.args}";
-			};
-		}) cfg.exec-once;
+      Service = {
+        Type = "exec";
+        ExecStart = "${command.command} ${lib.concatStringsSep " " command.args}";
+      };
+    }) cfg.exec-once;
   };
 }

@@ -9,9 +9,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-		security.sudo-rs = { 
-			enable = true;
-			execWheelOnly = true;
-		};
+    security.sudo-rs = {
+      enable = true;
+      execWheelOnly = true;
+    };
   };
 }

@@ -16,7 +16,15 @@ in
     home.packages = [ pkgs.activate-linux ];
     elysium.desktops.exec-once.activate-linux = {
       command = lib.getExe pkgs.activate-linux;
-			args = [ "-t" "'Activate NixOS'" "-m" "'Go to Dotfiles to activate NixOS'" "-s" "0.9" "--daemonize" ];
-		};
+      args = [
+        "-t"
+        "'Activate NixOS'"
+        "-m"
+        "'Go to Dotfiles to activate NixOS'"
+        "-s"
+        "0.9"
+        "--daemonize"
+      ];
+    };
   };
 }

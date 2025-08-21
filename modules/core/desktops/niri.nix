@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-	anyUser = lib.elysium.anyUserEnables [ "elysium" "desktops" "desktops" "niri" "enable" ] config;
+  anyUser = lib.elysium.anyUserEnables [ "elysium" "desktops" "desktops" "niri" "enable" ] config;
   cfg' = config.elysium.desktops;
   cfg = cfg'.desktops.niri;
 in

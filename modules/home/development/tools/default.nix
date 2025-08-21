@@ -2,7 +2,8 @@
 
 let
   cfg' = config.elysium.development;
-in{
+in
+{
   imports = lib.elysium.scanPaths ./.;
 
   options.elysium.development.tools.enable = lib.mkEnableOption "Language tools" // {

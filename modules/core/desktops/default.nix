@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-	anyUser = lib.elysium.anyUserEnables [ "elysium" "desktops" "enable" ] config;
+  anyUser = lib.elysium.anyUserEnables [ "elysium" "desktops" "enable" ] config;
 in
 {
   imports = lib.elysium.scanPaths ./.;

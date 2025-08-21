@@ -1,7 +1,7 @@
 {
   config,
   lib,
-	pkgs,
+  pkgs,
   ...
 }:
 
@@ -14,8 +14,8 @@ in
   };
   config = lib.mkIf cfg.enable {
     programs.vscode = {
-			enable = true;
-			package = pkgs.vscodium;
-		};
+      enable = true;
+      package = pkgs.vscodium;
+    };
   };
 }

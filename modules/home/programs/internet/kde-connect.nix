@@ -12,7 +12,7 @@ in
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     services.kdeconnect.enable = true;
     elysium.desktops.exec-once.kdeconnectd = {
-			command = "kdeconnectd"; 
-		};
+      command = "kdeconnectd";
+    };
   };
 }

@@ -1,14 +1,17 @@
 { config, lib, ... }:
 let
-	cfg' = config.nysa.Poseidon;
-	cfg = cfg'.shells.programs.oh-my-posh;
-in {
-	options.nysa.Poseidon.shells.programs.oh-my-posh.enable = lib.mkEnableOption "Poseidon's personal oh-my-posh config" // {
-		default = cfg'.enable;
-	};
+  cfg' = config.nysa.Poseidon;
+  cfg = cfg'.shells.programs.oh-my-posh;
+in
+{
+  options.nysa.Poseidon.shells.programs.oh-my-posh.enable =
+    lib.mkEnableOption "Poseidon's personal oh-my-posh config"
+    // {
+      default = cfg'.enable;
+    };
 
-	config = lib.mkIf cfg.enable {
-		programs.oh-my-posh.settings = {
+  config = lib.mkIf cfg.enable {
+    programs.oh-my-posh.settings = {
       blocks = [
         {
           newline = true;
@@ -85,5 +88,5 @@ in {
       };
     };
 
-	};
+  };
 }

@@ -9,5 +9,5 @@
 
   # Config formats
   programs.yamlfmt.enable = true;
-	programs.jsonfmt.enable = true;
+  programs.jsonfmt.enable = true;
 }

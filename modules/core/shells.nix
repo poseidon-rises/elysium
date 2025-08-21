@@ -1,8 +1,8 @@
 { config, lib, ... }:
 
 let
-	anyUserFish = lib.elysium.anyUserEnables [ "elysium" "shells" "shells" "fish" "enable" ] config;
-	anyUserZsh = lib.elysium.anyUserEnables [ "elysium" "shells" "shells" "zsh" "enable" ] config;
+  anyUserFish = lib.elysium.anyUserEnables [ "elysium" "shells" "shells" "fish" "enable" ] config;
+  anyUserZsh = lib.elysium.anyUserEnables [ "elysium" "shells" "shells" "zsh" "enable" ] config;
   cfg = config.elysium.shells;
 in
 {
@@ -32,7 +32,7 @@ in
       zsh.enable = lib.mkIf cfg.shells.zsh.enable true;
       fish.enable = lib.mkIf cfg.shells.fish.enable true;
     };
-		documentation.man.generateCaches = false;
+    documentation.man.generateCaches = false;
 
     users.defaultUserShell =
       let
