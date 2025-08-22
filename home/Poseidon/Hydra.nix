@@ -1,5 +1,3 @@
-{ ... }:
-
 {
   nysa.Poseidon.enable = true;
 

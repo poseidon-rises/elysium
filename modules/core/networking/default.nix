@@ -3,6 +3,6 @@
 {
   imports = lib.elysium.scanPaths ./.;
   networking = {
-    hostName = config.chaos.hostName;
+    inherit (config.chaos) hostName;
   };
 }

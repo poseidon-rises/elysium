@@ -21,7 +21,7 @@ in
       shellInit = builtins.readFile ./init.fish;
       shellInitLast = builtins.readFile ./init-last.fish;
 
-      shellAliases = cfg'.shellAliases;
+      inherit (cfg') shellAliases;
 
       shellAbbrs = {
         ns = "nix shell --command fish";

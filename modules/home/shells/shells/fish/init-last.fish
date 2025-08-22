@@ -5,5 +5,5 @@ function nsp
     for pkg in $argv
         set transformed $transformed "nixpkgs#$pkg"
     end
-    nix shell $transformed --command "fish"
+    nix shell $transformed --command fish
 end

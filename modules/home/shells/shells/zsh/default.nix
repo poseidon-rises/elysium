@@ -29,7 +29,7 @@ in
         enable = true;
       };
 
-      shellAliases = cfg'.shellAliases;
+      inherit (cfg') shellAliases;
 
       history = {
         size = cfg'.historySize;

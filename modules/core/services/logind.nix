@@ -31,7 +31,7 @@ in
   config = lib.mkIf cfg.enable {
     elysium.services.logind = {
       enable = true;
-      lidSwitch = cfg.lidSwitch;
+      inherit (cfg) lidSwitch;
     };
   };
 }

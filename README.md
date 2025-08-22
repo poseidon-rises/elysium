@@ -1,7 +1,6 @@
 # Elysium
 
-> The only true wisdom is in knowing you know nothing.
-> – Socrates
+> The only true wisdom is in knowing you know nothing. – Socrates
 
 This is my personal NixOS/Home Manager/NVF config with multiple hosts and users.
 It is designed to be extensible with new modules, hosts, and users.
