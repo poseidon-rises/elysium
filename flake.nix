@@ -93,7 +93,7 @@
       );
 
       checks = forAllSystems (system: {
-        pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+        pre-commit-check = inputs.git-hooks.lib.${system}.run {
           src = ./.;
           hooks = {
             treefmt = {
@@ -107,54 +107,79 @@
     };
 
   inputs = {
-
+    #
+    # ========== Nixpkgs ==========
+    #
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     master.url = "github:NixOS/nixpkgs/master";
 
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
+    #
+    # ========== NixOS modules ==========
+    #
+    disko = {
+      # Declarative disk management
+      url = "github:nix-community/disko/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    pre-commit-hooks = {
-      url = "github:cachix/git-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
+    #
+    # ========== HM modules ==========
+    #
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nvf = {
+      # Neovim configuration in nix
       url = "github:NotAShelf/nvf/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    sops-nix = {
-      url = "github:Mic92/sops-nix/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    disko = {
-      url = "github:nix-community/disko/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     zen-browser = {
+      # Zen Browser package and modules
       url = "github:0xc000022070/zen-browser-flake/beta";
       inputs.home-manager.follows = "home-manager";
     };
 
-    fenix = {
-      url = "github:nix-community/fenix/main";
+    #
+    # ========== Secrets ==========
+    #
+    sops-nix = {
+      # Nix secrets management
+      url = "github:Mic91/sops-nix/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     secrets = {
-      url = "git+ssh://git@gitlab.com/elysium-mirror/elysium-secrets.git?ref=main&shallow=1";
+      # Private repository with secrets
+      url = "git+ssh://git@gitlab.com/elysium-mirror/elysium-secrets.git?ref=main&shallow=0";
       flake = false;
+    };
+
+    #
+    # ========== Applications ==========
+    #
+    fenix = {
+      # Rust toolchain manager
+      url = "github:nix-community/fenix/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    #
+    # ========== Utilities ==========
+    #
+    treefmt-nix = {
+      # Formatter
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    git-hooks = {
+      # git hooks
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 }
