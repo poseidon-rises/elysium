@@ -148,7 +148,7 @@
     #
     sops-nix = {
       # Nix secrets management
-      url = "github:Mic91/sops-nix/master";
+      url = "github:Mic92/sops-nix/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
