@@ -48,6 +48,10 @@ in
           };
         }
       );
+      default = lib.forEach (lib.range 1 10) (id: {
+        inherit id;
+        default = id == 1;
+      });
     };
   };
 
@@ -61,19 +65,21 @@ in
 
         workspace = lib.forEach cfg.workspaces (
           workspace:
-          lib.concatStringsSep ", " [
-            (
-              if (workspace.name == null) then
-                toString workspace.id
-              else if workspace.special then
-                "special:${workspace.name}"
-              else
-                "name:${workspace.name}"
-            )
+          lib.concatStringsSep ", " (
+            [
+              (
+                if (workspace.name == null) then
+                  toString workspace.id
+                else if workspace.special then
+                  "special:${workspace.name}"
+                else
+                  "name:${workspace.name}"
+              )
 
-            "monitor:${workspace.monitor}"
-            "persistent:${if workspace.persist then "true" else "false"}"
-          ]
+              "persistent:${if workspace.persist then "true" else "false"}"
+            ]
+            ++ lib.optional (lib.any (_: true) chaos.monitors) "monitor:${workspace.monitor}"
+          )
         );
 
         monitorv2 = lib.forEach chaos.monitors (monitor: {

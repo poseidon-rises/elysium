@@ -77,6 +77,7 @@ in
           };
         }
       );
+      default = [ ];
     };
 
     networking = {

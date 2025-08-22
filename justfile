@@ -15,7 +15,7 @@ lint:
 # Lint the config and build
 check: lint build
 
-# Builds the configuration and applies it without saving 
+# Builds the configuration and applies it without saving
 test:
   nh os test
 

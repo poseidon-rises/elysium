@@ -7,9 +7,13 @@
   imports = lib.elysium.scanPaths ./.;
   chaos = {
     hostName = "Eurynomos";
-
+    aspects = [
+      "Graphical"
+      "Mobile"
+    ];
   };
 
   # Just don't change unless absolutly necessary
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
+
 }
