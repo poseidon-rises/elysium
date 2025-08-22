@@ -12,7 +12,7 @@
 
       forAllSystems = lib.genAttrs [
         "x86_64-linux"
-        #"aarch64-linux"
+        # "aarch64-linux"
       ];
 
       lib = nixpkgs.lib.extend (
@@ -83,14 +83,13 @@
 
       formatter = forAllSystems (system: inputs.treefmt-nix.lib.mkWrapper pkgs.${system} ./treefmt.nix);
 
-      devShell = forAllSystems (
-        system:
-        import ./shell.nix {
+      devShells = forAllSystems (system: {
+        default = import ./shell.nix {
           pkgs = pkgs.${system};
           checks = outputs.checks.${system};
           inherit lib;
-        }
-      );
+        };
+      });
 
       checks = forAllSystems (system: {
         pre-commit-check = inputs.git-hooks.lib.${system}.run {
