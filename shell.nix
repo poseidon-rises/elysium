@@ -1,9 +1,9 @@
-{ pkgs, ... }:
+{ checks, pkgs, ... }:
 pkgs.mkShell {
-  nativeBuildInputs = builtins.attrValues {
-    inherit (pkgs)
-      nh
-      just
-      ;
-  };
+  inherit (checks.pre-commit-check) shellHook;
+  nativeBuildInputs = [
+    pkgs.nh
+    pkgs.just
+  ];
+  buildInputs = checks.pre-commit-check.enabledPackages;
 }

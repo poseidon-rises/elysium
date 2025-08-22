@@ -25,6 +25,14 @@
         }
       );
 
+      pkgs = forAllSystems (
+        system:
+        import nixpkgs {
+          inherit system;
+          overlays = [ outputs.overlays.default ];
+        }
+      );
+
       vauxhall = import ./vauxhall.nix;
     in
     {
@@ -59,40 +67,43 @@
         ./modules/chaos.nix
       ];
 
-      homeManagerModules.elysium.imports = [
+      homeModules.elysium.imports = [
         ./modules/home
       ];
 
       packages = forAllSystems (
         system:
-        let
-          pkgs = import nixpkgs {
-            inherit system;
-            overlays = [ self.overlays.default ];
-          };
-        in
         nixpkgs.lib.packagesFromDirectoryRecursive {
-          callPackage = nixpkgs.lib.callPackageWith pkgs;
+          callPackage = nixpkgs.lib.callPackageWith pkgs.${system};
           directory = ./pkgs/common;
         }
       );
 
       overlays = import ./overlays { inherit inputs; };
 
-      formatter = forAllSystems (
-        system:
-        system
-        |> (s: import nixpkgs { inherit system; })
-        |> (pkgs: inputs.treefmt-nix.lib.mkWrapper pkgs ./treefmt.nix)
-      );
+      formatter = forAllSystems (system: inputs.treefmt-nix.lib.mkWrapper pkgs.${system} ./treefmt.nix);
 
       devShell = forAllSystems (
         system:
         import ./shell.nix {
-          pkgs = nixpkgs.legacyPackages.${system};
+          pkgs = pkgs.${system};
+          checks = outputs.checks.${system};
           inherit lib;
         }
       );
+
+      checks = forAllSystems (system: {
+        pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+          src = ./.;
+          hooks = {
+            treefmt = {
+              enable = true;
+              packageOverrides.treefmt = outputs.formatter.${system};
+            };
+            trim-trailing-whitespace.enable = true;
+          };
+        };
+      });
     };
 
   inputs = {
@@ -103,6 +114,11 @@
 
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    pre-commit-hooks = {
+      url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

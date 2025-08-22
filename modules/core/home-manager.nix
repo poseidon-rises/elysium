@@ -7,7 +7,7 @@
 
     sharedModules = [
       inputs.sops-nix.homeManagerModules.sops
-      outputs.homeManagerModules.elysium
+      outputs.homeModules.elysium
     ];
 
     backupFileExtension = ".backup";
