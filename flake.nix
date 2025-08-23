@@ -29,7 +29,10 @@
         system:
         import nixpkgs {
           inherit system;
-          overlays = [ outputs.overlays.default ];
+          overlays = [
+            outputs.overlays.default
+            inputs.nur.overlays.default
+          ];
         }
       );
 
@@ -112,6 +115,11 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     master.url = "github:NixOS/nixpkgs/master";
+
+    nur = {
+      url = "github:nix-community/nur";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     #
     # ========== NixOS modules ==========

@@ -12,8 +12,8 @@
       allowUnfree = true;
       permittedInsecurePackages = [ "SDL_ttf-2.0.11" ];
     };
-
     overlays = [
+      inputs.nur.overlays.default
       inputs.fenix.overlays.default
       outputs.overlays.default
     ];

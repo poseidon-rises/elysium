@@ -14,7 +14,12 @@ let
       config.allowUnfree = true;
     };
   };
+
+  firefoxExtensions = _final: prev: {
+    firefoxExtensions = prev.nur.repos.rycee.firefox-addons;
+  };
 in
 {
-  default = final: prev: (additions final prev) // (master final prev);
+  default =
+    final: prev: (additions final prev) // (master final prev) // (firefoxExtensions final prev);
 }
