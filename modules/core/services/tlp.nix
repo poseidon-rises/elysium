@@ -8,10 +8,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    elysium.services.serviceUser.tlp = { };
     elysium.services.serviceUser.tlp-sleep = { };
-
-    systemd.services.tlp.serviceConfig.User = "tlp-service";
 
     systemd.services.tlp-sleep.serviceConfig.User = "tlp-sleep-service";
 
