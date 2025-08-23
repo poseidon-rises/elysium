@@ -87,7 +87,9 @@
       formatter = forAllSystems (system: inputs.treefmt-nix.lib.mkWrapper pkgs.${system} ./treefmt.nix);
 
       devShells = forAllSystems (system: {
-        default = import ./shell.nix {
+        default = outputs.devShells.${system}.nix-dev;
+        nix-dev = import ./shell.nix {
+
           pkgs = pkgs.${system};
           checks = outputs.checks.${system};
           inherit lib;
