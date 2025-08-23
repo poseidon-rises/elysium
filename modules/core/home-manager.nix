@@ -10,6 +10,6 @@
       outputs.homeModules.elysium
     ];
 
-    backupFileExtension = ".backup";
+    backupFileExtension = "backup";
   };
 }
