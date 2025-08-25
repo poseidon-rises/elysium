@@ -6,15 +6,15 @@
 }:
 
 let
-  cfg' = config.elysium.apperance;
-  cfg = cfg'.cursor;
+  cfg' = config.nysa.Poseidon;
+  cfg = cfg'.apperance.cursor;
 in
 {
-  options.elysium.apperance.fonts.enable = lib.mkEnableOption "Install fonts" // {
+  options.nysa.Poseidon.apperance.fonts.enable = lib.mkEnableOption "Install fonts" // {
     default = cfg'.enable;
   };
 
-  config = lib.mkIf (cfg'.enable && cfg.enable) {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       nerd-fonts.jetbrains-mono
       noto-fonts

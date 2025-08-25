@@ -6,11 +6,11 @@
 }:
 
 let
-  cfg' = config.elysium.apperance;
-  cfg = cfg'.qt;
+  cfg' = config.nysa.Poseidon;
+  cfg = cfg'.apperance.qt;
 in
 {
-  options.elysium.apperance.qt.enable = lib.mkEnableOption "Qt" // {
+  options.nysa.Poseidon.apperance.qt.enable = lib.mkEnableOption "Qt" // {
     default = cfg'.enable;
   };
 

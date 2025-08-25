@@ -6,15 +6,15 @@
 }:
 
 let
-  cfg' = config.elysium.apperance;
-  cfg = cfg'.cursor;
+  cfg' = config.nysa.Poseidon;
+  cfg = cfg'.apperance.cursor;
 in
 {
-  options.elysium.apperance.cursor.enable = lib.mkEnableOption "Cursor customization" // {
+  options.nysa.Poseidon.apperance.cursor.enable = lib.mkEnableOption "Cursor customization" // {
     default = cfg'.enable;
   };
 
-  config = lib.mkIf (cfg'.enable && cfg.enable) {
+  config = lib.mkIf cfg.enable {
     home.pointerCursor = {
       name = "LyraP-cursors";
       package = pkgs.lyra-cursors;
