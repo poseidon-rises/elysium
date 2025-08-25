@@ -73,7 +73,7 @@ in
               leading_powerline_symbol = "";
               foreground = "black";
               background = "red";
-              template = " 󰀪 {{ .Code }}";
+              template = "󰀪 {{ .Code }}";
             }
             {
               type = "rust";
