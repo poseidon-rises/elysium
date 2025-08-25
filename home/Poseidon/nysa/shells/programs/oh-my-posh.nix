@@ -1,11 +1,16 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  vauxhall,
+  ...
+}:
 let
   cfg' = config.nysa.Poseidon;
   cfg = cfg'.shells.programs.oh-my-posh;
 in
 {
   options.nysa.Poseidon.shells.programs.oh-my-posh.enable =
-    lib.mkEnableOption "Poseidon's personal oh-my-posh config"
+  	lib.mkEnableOption "Poseidon's personal oh-my-posh config"
     // {
       default = cfg'.enable;
     };
@@ -59,8 +64,57 @@ in
         }
 
         {
-          newline = true;
+          type = "rprompt";
+          alignment = "right";
+          segments = [
+            {
+              type = "status";
+              style = "accordion";
+              leading_powerline_symbol = "";
+              foreground = "black";
+              background = "red";
+              template = " 󰀪 {{ .Code }}";
+            }
+            {
+              type = "rust";
+              style = "accordion";
+              powerline_symbol = "";
+              foreground = "black";
+              background = vauxhall.orange.hex;
+            }
+            {
+              type = "shell";
+              style = "accordion";
+              powerline_symbol = "";
+              foreground = "black";
+              background = vauxhall.yellow.hex;
+              properties.mapped_shell_names = {
+                fish = "󰈺 Fish";
+              };
+            }
+            {
+              type = "executiontime";
+              style = "accordion";
+              powerline_symbol = "";
+              foreground = "black";
+              background = "green";
+              template = " 󱦟 {{ .FormattedMs }}";
+              properties.threshold = 0;
+            }
+            {
+              type = "nix-shell";
+              style = "accordion";
+              powerline_symbol = "";
+              foreground = "black";
+              background = "lightBlue";
+              template = ''{{ if eq .Type "unknown" }}{{ else }} 󱄅 {{ .Type }}{{ end }}'';
+            }
+          ];
+        }
+
+        {
           type = "prompt";
+          newline = true;
           alignment = "left";
           segments = [
             {
