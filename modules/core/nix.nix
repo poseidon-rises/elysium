@@ -5,8 +5,11 @@
   outputs,
   ...
 }:
-
-{
+let
+  flakes = (lib.removeAttrs inputs [ "self" ]) // {
+		elysium = inputs.self;
+  };
+in {
   nixpkgs = {
     config = {
       allowUnfree = true;
@@ -21,16 +24,10 @@
 
   nix = {
     channel.enable = false;
-    registry =
-      let
-        flakes = (lib.removeAttrs inputs [ "self" ]) // {
-          elysium = inputs.self;
-        };
-      in
-      lib.mapAttrs (_: flake: { inherit flake; }) flakes;
-    nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") inputs;
+    registry = lib.mapAttrs (_: flake: { inherit flake; }) flakes;
+    nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakes;
     settings = {
-      nix-path = lib.mapAttrsToList (n: _: "${n}=flake:${n}") inputs;
+      nix-path = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakes;
       flake-registry = "";
       experimental-features = [
         "nix-command"
