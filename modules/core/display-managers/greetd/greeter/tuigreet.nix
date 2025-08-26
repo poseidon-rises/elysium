@@ -15,15 +15,18 @@ in
     lib.mkEnableOption "tuigreet";
 
   config = lib.mkIf (cfg''.enable && cfg'.enable && cfg.enable) {
-    services.greetd.settings.default_session.command = builtins.concatStringsSep " " [
-      (lib.getExe pkgs.tuigreet)
-      "--time"
-      "--user-menu"
-      "--remember"
-      "--remember-user-session"
-      "--theme='border=cyan;text=blue;prompt=blue;time=cyan;action=blue;button=yellow;container=black;input=magenta'"
-      "--power-shutdown 'systemctl poweroff'"
-      "--power-reboot 'systemctl reboot'"
-    ];
+    services.greetd = {
+      useTextGreeter = true;
+      settings.default_session.command = builtins.concatStringsSep " " [
+        (lib.getExe pkgs.tuigreet)
+        "--time"
+        "--user-menu"
+        "--remember"
+        "--remember-user-session"
+        "--theme='border=cyan;text=blue;prompt=blue;time=cyan;action=blue;button=yellow;container=black;input=magenta'"
+        "--power-shutdown 'systemctl poweroff'"
+        "--power-reboot 'systemctl reboot'"
+      ];
+    };
   };
 }

@@ -10,7 +10,7 @@ let
 in
 {
   options.nysa.Poseidon.shells.programs.oh-my-posh.enable =
-  	lib.mkEnableOption "Poseidon's personal oh-my-posh config"
+    lib.mkEnableOption "Poseidon's personal oh-my-posh config"
     // {
       default = cfg'.enable;
     };

@@ -7,9 +7,10 @@
 }:
 let
   flakes = (lib.removeAttrs inputs [ "self" ]) // {
-		elysium = inputs.self;
+    elysium = inputs.self;
   };
-in {
+in
+{
   nixpkgs = {
     config = {
       allowUnfree = true;
