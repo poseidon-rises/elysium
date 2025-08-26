@@ -64,9 +64,18 @@ in
 
         # Programming
 
-        autocomplete.blink-cmp.enable = true;
+        autocomplete = {
+          blink-cmp.enable = true;
+          nvim-cmp.enable = false;
+        };
 
         git.neogit.enable = true;
+
+        diagnostics.config.virtual_text.format = lib.generators.mkLuaInline ''
+          					function(diagnostic)
+          						return string.format("%s (%s)", diagnostic.message, diagnostic.source)
+          					end
+          				'';
 
         lsp = {
           enable = true;
@@ -143,7 +152,12 @@ in
           markdown = {
             enable = true;
             format.type = "prettierd";
-            extensions.render-markdown-nvim.enable = true;
+            extensions.render-markdown-nvim = {
+              enable = true;
+              setupOpts = {
+                latex.converter = lib.getExe' pkgs.python312Packages.pylatexenc "latex2text";
+              };
+            };
           };
 
           rust = lib.mkIf langCfg.rust.enable {
@@ -152,25 +166,19 @@ in
 
             format.package = langCfg.rust.toolchain.rustfmt;
           };
+
+          html.enable = true;
         };
 
-        autocmds = [
-          {
-            event = [ "FileType" ];
-            pattern = [ "markdown" ];
-            callback = lib.mkLuaInline ''
-              	function()
-              		vim.opt_local.textwidth=80
-                	vim.opt_local.formatoptions:append("t")
-                end
-            '';
-          }
+        treesitter.grammars = [
+          pkgs.vimPlugins.nvim-treesitter.builtGrammars.latex # Add latex for render-markdown.nvim
         ];
 
         notes.obsidian = {
           enable = true;
 
           setupOpts = {
+            ui.enable = true;
             workspaces = [
               {
                 name = "nts";
