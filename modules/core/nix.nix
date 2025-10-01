@@ -13,8 +13,15 @@ in
 {
   nixpkgs = {
     config = {
-      allowUnfree = true;
       permittedInsecurePackages = [ "SDL_ttf-2.0.11" ];
+      allowUnfreePredicate =
+        pkg:
+        builtins.elem (lib.getName pkg) [
+          "spotify"
+          "aseprite"
+          "steam"
+          "steam-unwrapped"
+        ];
     };
     overlays = [
       inputs.nur.overlays.default
@@ -26,9 +33,9 @@ in
   nix = {
     channel.enable = false;
     registry = lib.mapAttrs (_: flake: { inherit flake; }) flakes;
-    nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakes;
+    nixPath = lib.mapAttrsToList (n: v: "${n}=flake:${v}") flakes;
     settings = {
-      nix-path = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakes;
+      nix-path = lib.mapAttrsToList (n: v: "${n}=flake:${v}") flakes;
       flake-registry = "";
       experimental-features = [
         "nix-command"

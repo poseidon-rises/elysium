@@ -10,7 +10,9 @@ let
   cfg = cfg'.brightnessctl;
 in
 {
-  options.elysium.desktops.brightnessctl.enable = lib.mkEnableOption "brightnessctl";
+  options.elysium.desktops.brightnessctl.enable = lib.mkEnableOption "brightnessctl" // {
+    default = cfg'.enable;
+  };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     home.packages = [ pkgs.brightnessctl ];

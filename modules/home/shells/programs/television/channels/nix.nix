@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -26,7 +27,7 @@ in
           "nur"
         ];
 
-        experimental.render_docs_indexes.nvf = "https://notashelf.github.io/nvf/options.html";
+        experimental.options_file.nvf = pkgs.nvf.docs-json + "/share/doc/nvf/options.json";
       };
     };
     television.channels.nix-search-tv.metadata.name = lib.mkForce "nix";

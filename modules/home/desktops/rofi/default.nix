@@ -18,7 +18,6 @@ in
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     programs.rofi = {
       enable = true;
-      package = pkgs.rofi-wayland;
 
       theme = {
         "*" = {

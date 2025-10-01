@@ -11,6 +11,8 @@ let
   vauxhall = import (lib.elysium.relativeToRoot "vauxhall.nix");
 
   cfg = config.elysium.users.users.primary;
+
+  ifGroupsExists = groups: lib.filter (group: lib.hasAttr group config.users.groups) groups;
 in
 {
   options.elysium.users.users.primary.enable = lib.mkEnableOption "primary user" // {
@@ -23,7 +25,18 @@ in
       name = chaos.username;
       group = chaos.username;
       uid = 1000;
-      extraGroups = [ "wheel" ];
+      extraGroups = [
+        "wheel"
+      ]
+      ++ ifGroupsExists [
+        "audio"
+        "video"
+        "networkmanager"
+        # For print/scan
+        "scanner"
+        "lp"
+      ];
+
       shell = pkgs.fish;
 
       openssh.authorizedKeys.keys = lib.lists.forEach lib.filesystem.listFilesRecursive ./keys (

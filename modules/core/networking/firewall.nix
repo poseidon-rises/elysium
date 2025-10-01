@@ -27,6 +27,12 @@ in
         from = 1714;
         to = 1764;
       };
+      allowedTCPPortRanges = [
+        {
+          from = 40000;
+          to = 40001;
+        }
+      ];
     };
   };
 }

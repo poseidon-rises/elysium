@@ -1,6 +1,8 @@
 {
   config,
+  inputs,
   lib,
+  pkgs,
   ...
 }:
 
@@ -15,7 +17,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [
-      #			inputs.tagstudio.packages.${pkgs.system}.default
+      #  inputs.tagstudio.packages.${pkgs.system}.default
     ];
   };
 }

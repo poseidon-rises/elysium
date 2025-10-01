@@ -9,6 +9,7 @@ let
   cfg = config.elysium.services.mpd;
 in
 {
+  imports = lib.elysium.scanPaths ./.;
   options.elysium.services.mpd.enable = lib.mkEnableOption "MPD music" // {
     default = lib.elem "Graphical" chaos;
   };

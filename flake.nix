@@ -148,7 +148,7 @@
 
     zen-browser = {
       # Zen Browser package and modules
-      url = "github:0xc000022070/zen-browser-flake/beta";
+      url = "github:0xc000022070/zen-browser-flake/main";
       inputs.home-manager.follows = "home-manager";
     };
 
@@ -176,6 +176,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    tagstudio = {
+      url = "github:TagStudioDev/TagStudio/main";
+      # inputs.nixpkgs.follows = "nixpkgs"; Add back when
+      # https://github.com/NixOS/nixpkgs/pull/437098 is added to unstable
+    };
     #
     # ========== Utilities ==========
     #

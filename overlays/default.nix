@@ -18,8 +18,16 @@ let
   firefoxExtensions = _final: prev: {
     firefoxExtensions = prev.nur.repos.rycee.firefox-addons;
   };
+
+  nvimPackages = final: _prev: {
+    nvf = inputs.nvf.packages.${final.system};
+  };
 in
 {
   default =
-    final: prev: (additions final prev) // (master final prev) // (firefoxExtensions final prev);
+    final: prev:
+    (additions final prev)
+    // (master final prev)
+    // (firefoxExtensions final prev)
+    // (nvimPackages final prev);
 }

@@ -56,6 +56,7 @@ in
           shiftwidth = 2;
           mouse = "";
           linebreak = true;
+          wrap = false;
         };
 
         globals = {

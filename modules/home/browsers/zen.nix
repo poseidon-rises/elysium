@@ -11,7 +11,7 @@ let
 in
 {
   imports = [
-    inputs.zen-browser.homeModules.default
+    inputs.zen-browser.homeModules.beta
   ];
   options.elysium.browsers.browsers.zen.enable = lib.mkEnableOption "Zen Browser";
 

@@ -53,9 +53,7 @@ in
       settings = {
         "$terminal" = "kitty";
         "$fileManager" = "dolphin";
-        "$browser" = "MOZ_ENABLE_WAYLAND=0 ${
-          if (config.elysium.browsers.default == "zen") then "zen-beta" else config.elysium.browsers.default
-        }";
+        "$browser" = "MOZ_ENABLE_WAYLAND=0 ${config.elysium.browsers.defaultDetails.command}";
         "$menu" = "rofi -show drun";
 
         input = {
@@ -88,11 +86,6 @@ in
         ecosystem = {
           no_update_news = true;
           no_donation_nag = true;
-        };
-
-        # https://wiki.hyprland.org/Configuring/Variables/#gestures
-        gestures = {
-          workspace_swipe = true;
         };
 
         # https://wiki.hyprland.org/Configuring/Variables/#general
@@ -160,9 +153,9 @@ in
           animation = [
             "global, 1, 10, default"
             "border, 1, 5.39, easeOutQuint"
-            "windows, 1, 4.79, easeOutQuint, gnomed"
-            "windowsIn, 1, 4.1, easeOutQuint, gnomed"
-            "windowsOut, 1, 1.49, linear, gnomed"
+            "windows, 1, 4.79, easeOutQuint, popin"
+            "windowsIn, 1, 4.1, easeOutQuint, popin"
+            "windowsOut, 1, 1.49, linear, popin"
             "fadeIn, 1, 1.73, almostLinear"
             "fadeOut, 1, 1.46, almostLinear"
             "fade, 1, 3.03, quick"
@@ -174,6 +167,23 @@ in
             "workspaces, 1, 4, easeOutCubic, slidevert"
           ];
         };
+
+				# https://wiki.hyprland.org/Configuring/#gestures
+        gesture = [
+          "3, vertical, workspace"
+					"3, vertical, mod: SHIFT, special, hidden"
+					"3, vertical, mod: ALT, special, notebook"
+          "3, left, dispatcher, movefocus, r"
+          "3, right, dispatcher, movefocus, l"
+					"3, left, mod: ALT, dispatcher, layoutmsg, movewindowto l"
+					"3, right, mod: ALT, dispatcher, layoutmsg, movewindowto r"
+					"3, up, mod: CTRL, dispatcher, layoutmsg, colresize +0.5"
+					"3, down, mod: CTRL, dispatcher, layoutmsg, colresize -0.5"
+					"3, up, mod: CTRL + SHIFT, dispatcher, layoutmsg, colresize +0.1"
+					"3, down, mod: CTRL + SHIFT, dispatcher, layoutmsg, colresize -0.1"
+        ];
+
+
 
         bind = [
           # Program binds
@@ -251,11 +261,11 @@ in
         ];
 
         binde = [
-          "CTRL + SUPER, left, layoutmsg, colresize +0.5"
-          "CTRL + SUPER, right, layoutmsg, colresize -0.5"
+          "CTRL + SUPER, up, layoutmsg, colresize +0.5"
+          "CTRL + SUPER, down, layoutmsg, colresize -0.5"
 
           "CTRL + SHIFT + SUPER, up, layoutmsg, colresize +0.1"
-          "CTRL + SHIFT + SUPER, down, layoutmsg, colresize +0.1"
+          "CTRL + SHIFT + SUPER, down, layoutmsg, colresize -0.1"
         ];
 
         bindm = [
@@ -291,55 +301,56 @@ in
           ",XF86MonBrightnessUp, exec, brightnessctl s 10%+"
           ",XF86MonBrightnessDown, exec, brightnessctl s 10%-"
 
-          # Exit Hyprland
-          "SUPER, ESCAPE, exit"
+       ];
 
-          # Power options
-          "SHIFT + SUPER, ESCAPE, exec, poweroff"
-          "ALT + SUPER, ESCAPE, exec, reboot"
-        ];
+		 bindl = [
+				# Manage media with media keys
+				", XF86AudioPrev, exec, playerctl previous"
+				", XF86AudioNext, exec, playerctl next"
+				", XF86AudioPause, exec, playerctl play-pause"
+				", XF86AudioPlay, exec, playerctl play-pause"
 
-        bindl = [
-          # Manage media with media keys
-          ", XF86AudioPrev, exec, playerctl previous"
-          ", XF86AudioNext, exec, playerctl next"
-          ", XF86AudioPause, exec, playerctl play-pause"
-          ", XF86AudioPlay, exec, playerctl play-pause"
-        ];
+				 # Exit Hyprland
+				"SUPER, ESCAPE, exit"
 
-        windowrule = [
-          "noblur, class:kando"
-          "opaque, class:kando"
-          "size 100% 100%, class:kando"
-          "noborder, class:kando"
-          "noanim, class:kando"
-          "float, class:kando"
-          "pin, class:kando"
-        ];
+				# Power options
+				"SHIFT + SUPER, ESCAPE, exec, poweroff"
+				"ALT + SUPER, ESCAPE, exec, reboot"
+			];
 
-        windowrulev2 = [
-          "suppressevent maximize, class:.*"
-          "float, class:org.freedesktop.impl.portal.desktop.kde"
-          "size 80% 80%, class:org.freedesktop.impl.portal.desktop.kde"
-          "center, class:org.freedesktop.impl.portal.desktop.kde"
-          "nofocus, class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
-        ];
+			windowrule = [
+				"noblur, class:kando"
+				"opaque, class:kando"
+				"size 100% 100%, class:kando"
+				"noborder, class:kando"
+				"noanim, class:kando"
+				"float, class:kando"
+				"pin, class:kando"
+			];
 
-        plugin = {
-          dynamic-cursors = {
-            enabled = true;
-            mode = "tilt";
-            tilt.limit = 2500;
-            shake.enabled = false;
-          };
+			windowrulev2 = [
+				"suppressevent maximize, class:.*"
+				"float, class:org.freedesktop.impl.portal.desktop.kde"
+				"size 80% 80%, class:org.freedesktop.impl.portal.desktop.kde"
+				"center, class:org.freedesktop.impl.portal.desktop.kde"
+				"nofocus, class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+			];
 
-          hyprscrolling = {
-            enabled = true;
+			plugin = {
+				dynamic-cursors = {
+					enabled = true;
+					mode = "tilt";
+					tilt.limit = 2500;
+					shake.enabled = false;
+				};
 
-            fullscreen_on_one_column = true;
-          };
-        };
-      };
+				hyprscrolling = {
+					enabled = true;
+
+					fullscreen_on_one_column = true;
+				};
+			};
+		};
 
       xwayland.enable = true;
       systemd.enable = true;
