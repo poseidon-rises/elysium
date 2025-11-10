@@ -88,59 +88,41 @@ in
           no_donation_nag = true;
         };
 
-        # https://wiki.hyprland.org/Configuring/Variables/#general
         general = {
           gaps_in = "4";
           gaps_out = "8, 8, 8, 8";
-
           border_size = 2;
 
-          # https://wiki.hyprland.org/Configuring/Variables/#variable-types for info about colors
           "col.active_border" = "rgb(${vauxhall.cyan.alpha})";
           "col.inactive_border" = "rgb(${vauxhall.gray.alpha})";
 
           layout = "scrolling";
 
-          # Set to true enable resizing windows by clicking and dragging on borders and gaps
-          resize_on_border = false;
-
-          # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
           allow_tearing = false;
         };
 
         dwindle = {
-          pseudotile = true; # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-          preserve_split = true; # You probably want this
+          pseudotile = true;
+          preserve_split = true;
           smart_split = true;
         };
 
-        # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
         decoration = {
-          rounding = 0;
-
-          # Change transparency of focused and unfocused windows
-          active_opacity = 1.0;
-          inactive_opacity = 1.0;
-
           shadow = {
             enabled = true;
-            range = 4;
+            range = 5;
             render_power = 4;
 
-            color = "rgba(${vauxhall.cyan.alpha}80)";
+            color = "rgba(${vauxhall.cyan.alpha}1a)";
             color_inactive = "rgba(00000000)";
           };
 
-          # https://wiki.hyprland.org/Configuring/Variables/#blur
-          blur = {
-            enabled = false;
-          };
+          blur.enabled = false;
         };
 
         animations = {
           enabled = true;
 
-          # Default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
           bezier = [
             "easeOutQuint,0.23,1,0.32,1"
             "easeInOutCubic,0.65,0.05,0.36,1"
@@ -168,25 +150,23 @@ in
           ];
         };
 
-				# https://wiki.hyprland.org/Configuring/#gestures
         gesture = [
           "3, vertical, workspace"
-					"3, vertical, mod: SHIFT, special, hidden"
-					"3, vertical, mod: ALT, special, notebook"
+          "3, vertical, mod: SHIFT, special, hidden"
+          "3, vertical, mod: ALT, special, notebook"
           "3, left, dispatcher, movefocus, r"
           "3, right, dispatcher, movefocus, l"
-					"3, left, mod: ALT, dispatcher, layoutmsg, movewindowto l"
-					"3, right, mod: ALT, dispatcher, layoutmsg, movewindowto r"
-					"3, up, mod: CTRL, dispatcher, layoutmsg, colresize +0.5"
-					"3, down, mod: CTRL, dispatcher, layoutmsg, colresize -0.5"
-					"3, up, mod: CTRL + SHIFT, dispatcher, layoutmsg, colresize +0.1"
-					"3, down, mod: CTRL + SHIFT, dispatcher, layoutmsg, colresize -0.1"
+          "3, left, mod: ALT, dispatcher, layoutmsg, movewindowto l"
+          "3, right, mod: ALT, dispatcher, layoutmsg, movewindowto r"
+          "3, up, mod: CTRL, dispatcher, layoutmsg, colresize +0.5"
+          "3, down, mod: CTRL, dispatcher, layoutmsg, colresize -0.5"
+          "3, up, mod: CTRL + SHIFT, dispatcher, layoutmsg, colresize +0.1"
+          "3, down, mod: CTRL + SHIFT, dispatcher, layoutmsg, colresize -0.1"
         ];
-
-
 
         bind = [
           # Program binds
+
           "SUPER, RETURN, exec, $terminal"
           "SUPER, B, exec, $browser"
           "SUPER, E, exec, $fileManager"
@@ -203,27 +183,28 @@ in
           "SHIFT + SUPER, PRINT, exec, hyprshot -m region -o ~${config.xdg.userDirs.pictures}/ss"
           "ALT + SUPER, PRINT, exec, hyprcorder.sh"
 
-          # Manage layout
+          # Float window with Super + F
           "SUPER, F, togglefloating,"
 
-          # Kill the selected window with Mod + Q
+          # Kill the selected window with Super + Q
 
           "SUPER, Q, killactive,"
 
-          # Change window focus with Mod + Arrow Keys
+          # Change window focus with Super + Arrow Keys
 
           "SUPER, left, movefocus, l"
           "SUPER, right, movefocus, r"
           "SUPER, up, movefocus, u"
           "SUPER, down, movefocus, d"
 
-          # Move windows with Alt + Mod + Arrow Keys
+          # Move windows with Alt + Super + Arrow Keys
 
           "ALT + SUPER, left, layoutmsg, movewindowto l"
           "ALT + SUPER, right, layoutmsg, movewindowto r"
           "ALT + SUPER, up, layoutmsg, movewindowto u"
           "ALT + SUPER, down, layoutmsg, movewindowto d"
-          # Move to workspace with Mod + [0-9]
+
+          # Move to workspace with Super + [0-9]
 
           "SUPER, 1, workspace, 1"
           "SUPER, 2, workspace, 2"
@@ -236,7 +217,7 @@ in
           "SUPER, 9, workspace, 9"
           "SUPER, 0, workspace, 10"
 
-          # Move window to workspace with  Shift + Mod + [0-9]
+          # Move window to workspace with  Shift + Super + [0-9]
 
           "SHIFT + SUPER, 1, movetoworkspace, 1"
           "SHIFT + SUPER, 2, movetoworkspace, 2"
@@ -254,7 +235,7 @@ in
           "SUPER, S, togglespecialworkspace, hidden"
           "SHIFT + SUPER, S, movetoworkspace, special:hidden"
 
-          # Special workspace 'notebook', keep track of notes, write things down for later, etc
+          # Special workspace 'notebook', used for Obsidian
 
           "SUPER, N, togglespecialworkspace, notebook"
           "SHIFT + SUPER, N, movetoworkspace, special:notebook"
@@ -269,7 +250,7 @@ in
         ];
 
         bindm = [
-          # Manage windows with mainMod + mouse
+          # Manage windows with Super + mouse
           "SUPER, mouse:272, movewindow"
           "SUPER, mouse:273, resizewindow"
         ];
@@ -301,56 +282,56 @@ in
           ",XF86MonBrightnessUp, exec, brightnessctl s 10%+"
           ",XF86MonBrightnessDown, exec, brightnessctl s 10%-"
 
-       ];
+        ];
 
-		 bindl = [
-				# Manage media with media keys
-				", XF86AudioPrev, exec, playerctl previous"
-				", XF86AudioNext, exec, playerctl next"
-				", XF86AudioPause, exec, playerctl play-pause"
-				", XF86AudioPlay, exec, playerctl play-pause"
+        bindl = [
+          # Manage media with media keys
+          ", XF86AudioPrev, exec, playerctl previous"
+          ", XF86AudioNext, exec, playerctl next"
+          ", XF86AudioPause, exec, playerctl play-pause"
+          ", XF86AudioPlay, exec, playerctl play-pause"
 
-				 # Exit Hyprland
-				"SUPER, ESCAPE, exit"
+          # Exit Hyprland
+          "SUPER, ESCAPE, exit"
 
-				# Power options
-				"SHIFT + SUPER, ESCAPE, exec, poweroff"
-				"ALT + SUPER, ESCAPE, exec, reboot"
-			];
+          # Power options
+          "SHIFT + SUPER, ESCAPE, exec, poweroff"
+          "ALT + SUPER, ESCAPE, exec, reboot"
+        ];
 
-			windowrule = [
-				"noblur, class:kando"
-				"opaque, class:kando"
-				"size 100% 100%, class:kando"
-				"noborder, class:kando"
-				"noanim, class:kando"
-				"float, class:kando"
-				"pin, class:kando"
-			];
+        windowrule = [
+          "noblur, class:kando"
+          "opaque, class:kando"
+          "size 100% 100%, class:kando"
+          "noborder, class:kando"
+          "noanim, class:kando"
+          "float, class:kando"
+          "pin, class:kando"
+        ];
 
-			windowrulev2 = [
-				"suppressevent maximize, class:.*"
-				"float, class:org.freedesktop.impl.portal.desktop.kde"
-				"size 80% 80%, class:org.freedesktop.impl.portal.desktop.kde"
-				"center, class:org.freedesktop.impl.portal.desktop.kde"
-				"nofocus, class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
-			];
+        windowrulev2 = [
+          "suppressevent maximize, class:.*"
+          "float, class:org.freedesktop.impl.portal.desktop.kde"
+          "size 80% 80%, class:org.freedesktop.impl.portal.desktop.kde"
+          "center, class:org.freedesktop.impl.portal.desktop.kde"
+          "nofocus, class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+        ];
 
-			plugin = {
-				dynamic-cursors = {
-					enabled = true;
-					mode = "tilt";
-					tilt.limit = 2500;
-					shake.enabled = false;
-				};
+        plugin = {
+          dynamic-cursors = {
+            enabled = true;
+            mode = "tilt";
+            tilt.limit = 2500;
+            shake.enabled = false;
+          };
 
-				hyprscrolling = {
-					enabled = true;
+          hyprscrolling = {
+            enabled = true;
 
-					fullscreen_on_one_column = true;
-				};
-			};
-		};
+            fullscreen_on_one_column = true;
+          };
+        };
+      };
 
       xwayland.enable = true;
       systemd.enable = true;
