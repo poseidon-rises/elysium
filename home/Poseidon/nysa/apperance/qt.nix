@@ -26,10 +26,5 @@ in
       platformTheme.name = "qtct";
       style.name = "kvantum";
     };
-
-    home.sessionVariables = {
-      QT_QPA_PLATFORMTHEME = "qt5ct"; # Set the Qt platform theme
-      QT_STYLE = "kvantum"; # Set the Qt style
-    };
   };
 }
