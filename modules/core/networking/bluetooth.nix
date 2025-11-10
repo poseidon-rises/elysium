@@ -1,7 +1,6 @@
 {
   config,
   lib,
-
   ...
 }:
 
@@ -11,7 +10,7 @@ in
 {
   options.elysium.networking.bluetooth.enable = lib.mkEnableOption "Bluetooth";
 
-  config = {
-    hardware.bluetooth.enable = cfg.enable;
+  config = lib.mkIf cfg.enable {
+    hardware.bluetooth.enable = true;
   };
 }
