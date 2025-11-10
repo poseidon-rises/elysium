@@ -4,6 +4,7 @@
   lib,
   outputs,
   pkgs,
+  self,
   ...
 }:
 let
@@ -51,7 +52,12 @@ in
 
     home-manager = {
       extraSpecialArgs = {
-        inherit inputs outputs vauxhall;
+        inherit
+          inputs
+          outputs
+          vauxhall
+          self
+          ;
         inherit (config) chaos;
       };
 
