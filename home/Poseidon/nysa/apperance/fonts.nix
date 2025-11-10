@@ -18,7 +18,6 @@ in
     home.packages = with pkgs; [
       nerd-fonts.jetbrains-mono
       noto-fonts
-      noto-fonts-extra
       noto-fonts-color-emoji
       twemoji-color-font
     ];
