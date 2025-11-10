@@ -17,7 +17,6 @@ in
       allowUnfreePredicate =
         pkg:
         builtins.elem (lib.getName pkg) [
-          "spotify"
           "aseprite"
           "obsidian"
           "steam"
