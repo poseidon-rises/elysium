@@ -10,8 +10,15 @@ let
 
   master = final: _prev: {
     master = import inputs.master {
-      inherit (final) system;
+      inherit (final.stdenv.hostPlatform) system;
       config.allowUnfree = true;
+    };
+  };
+
+  stable = final: _prev: {
+    master = import inputs.stable {
+      inherit (final.stdenv.hostPlatform) system;
+      config.allow = true;
     };
   };
 
@@ -20,7 +27,7 @@ let
   };
 
   nvimPackages = final: _prev: {
-    nvf = inputs.nvf.packages.${final.system};
+    nvf = inputs.nvf.packages.${final.stdenv.hostPlatform.system};
   };
 in
 {
@@ -28,6 +35,7 @@ in
     final: prev:
     (additions final prev)
     // (master final prev)
+    // (stable final prev)
     // (firefoxExtensions final prev)
     // (nvimPackages final prev);
 }

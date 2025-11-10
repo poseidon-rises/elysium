@@ -16,7 +16,7 @@
       ];
 
       lib = nixpkgs.lib.extend (
-        self: super: {
+        _self: _super: {
           elysium = import ./lib {
             inherit (nixpkgs) lib;
           };
@@ -112,19 +112,35 @@
 
   inputs = {
     #
-    # ========== Nixpkgs ==========
+    # ========== Nix Packages ==========
+    #
+    # This imports larger collections of nixpkgs
     #
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     master.url = "github:NixOS/nixpkgs/master";
 
+    stable.url = "github:NixOS/nixpkgs/nixos-25.05";
+
     nur = {
+      # Community maintained NUR repository
       url = "github:nix-community/nur";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+
+    fenix = {
+      # Packages for the Rust toolchain
+      url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     #
-    # ========== NixOS modules ==========
+    # ========== NixOS Modules ==========
+    #
+    # NixOS modules needed for system configuration and management
     #
     disko = {
       # Declarative disk management
@@ -133,36 +149,49 @@
     };
 
     #
-    # ========== HM modules ==========
+    # ========== HM Modules ==========
+    #
+    # Home Manager modules needed for user config management
     #
     home-manager = {
+      # Manage user specific configuration
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nvf = {
       # Neovim configuration in nix
-      url = "github:NotAShelf/nvf/main";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:NotAShelf/nvf/v0.8";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        flake-compat.follows = "flake-compat";
+        systems.follows = "systems";
+      };
     };
 
     zen-browser = {
       # Zen Browser package and modules
       url = "github:0xc000022070/zen-browser-flake/main";
-      inputs.home-manager.follows = "home-manager";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
     };
 
     #
     # ========== Secrets ==========
     #
+    # Flakes needed for secrets management
+    #
     sops-nix = {
       # Nix secrets management
-      url = "github:Mic92/sops-nix/master";
+      url = "github:mic92/sops-nix/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     secrets = {
-      # Private repository with secrets
+      # Private repository with encrypted secrets
       url = "git+ssh://git@gitlab.com/elysium-mirror/elysium-secrets.git?ref=main&shallow=0";
       flake = false;
     };
@@ -170,19 +199,22 @@
     #
     # ========== Applications ==========
     #
-    fenix = {
-      # Rust toolchain manager
-      url = "github:nix-community/fenix/main";
-      inputs.nixpkgs.follows = "nixpkgs";
+    # Inputs that add a single app or package
+    #
+    tagstudio = {
+      # TagStudio, a file management software
+      url = "github:TagStudioDev/TagStudio/main";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        systems.follows = "systems";
+      };
     };
 
-    tagstudio = {
-      url = "github:TagStudioDev/TagStudio/main";
-      # inputs.nixpkgs.follows = "nixpkgs"; Add back when
-      # https://github.com/NixOS/nixpkgs/pull/437098 is added to unstable
-    };
     #
-    # ========== Utilities ==========
+    # ========== Flake ==========
+    #
+    # Inputs used to manage the flake
     #
     treefmt-nix = {
       # Formatter
@@ -191,9 +223,27 @@
     };
 
     git-hooks = {
-      # git hooks
+      # Git hooks
       url = "github:cachix/git-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "systems";
+      };
     };
+
+    #
+    # ========== Shared Dependencies ==========
+    #
+    # These are flakes that other inputs use more than once, so we share them to
+    # minimize disk usage
+    #
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
+    flake-compat.url = "github:edolstra/flake-compat";
+
+    systems.url = "github:nix-systems/default";
   };
 }
