@@ -1,19 +1,9 @@
 { config, lib, ... }:
 
 let
-	cfg = config.elysium.browsers;
-	browserDetails = {
-		firefox = {
-			command = "firefox";
-			desktopFile = "firefox.desktop";
-		};
-
-		zen = {
-			command = "zen-beta";
-			desktop = "zen-beta.desktop";
-		};
-	};
-in {
+  cfg = config.elysium.browsers;
+in
+{
   imports = [
     (lib.elysium.mkSelectorModule [ "elysium" "browsers" ] {
       name = "default";
@@ -25,13 +15,12 @@ in {
   ++ lib.elysium.scanPaths ./.;
 
   options.elysium.browsers = {
-		enable = lib.mkEnableOption "browsers" // {
-			default = config.elysium.desktops.enable;
-		};
+    enable = lib.mkEnableOption "browsers" // {
+      default = config.elysium.desktops.enable;
+    };
+  };
 
-		defaultDetails = lib.mkOption {
-			default = browserDetails.${cfg.default};
-			readOnly = true;
-		};
-	};
+  config = lib.mkIf cfg.enable {
+
+  };
 }

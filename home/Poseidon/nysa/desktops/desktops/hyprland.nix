@@ -53,7 +53,9 @@ in
       settings = {
         "$terminal" = "kitty";
         "$fileManager" = "dolphin";
-        "$browser" = "MOZ_ENABLE_WAYLAND=0 ${config.elysium.browsers.defaultDetails.command}";
+        "$browser" = "MOZ_ENABLE_WAYLAND=0 ${
+          lib.getExe config.elysium.browsers.browsers.${config.elysium.browsers.default}.package
+        }";
         "$menu" = "rofi -show drun";
 
         input = {
