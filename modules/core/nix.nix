@@ -19,6 +19,7 @@ in
         builtins.elem (lib.getName pkg) [
           "spotify"
           "aseprite"
+          "obsidian"
           "steam"
           "steam-unwrapped"
         ];
