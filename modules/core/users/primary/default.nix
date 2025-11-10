@@ -29,6 +29,7 @@ in
         "wheel"
       ]
       ++ ifGroupsExists [
+        "nix"
         "audio"
         "video"
         "networkmanager"
