@@ -1,8 +1,5 @@
-{ inputs, lib, ... }:
+{ lib, ... }:
 
 {
-  imports = [
-    inputs.nvf.homeManagerModules.default
-  ]
-  ++ lib.elysium.scanPaths ./.;
+  imports = lib.elysium.scanPaths ./.;
 }

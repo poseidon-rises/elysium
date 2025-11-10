@@ -7,6 +7,7 @@
 
     sharedModules = [
       inputs.sops-nix.homeManagerModules.sops
+      inputs.nvf.homeManagerModules.default
       outputs.homeModules.elysium
     ];
 
