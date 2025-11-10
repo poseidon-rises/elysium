@@ -61,6 +61,7 @@ in
           kb_variant = "";
           kb_model = "";
           kb_rules = "";
+          kb_options = lib.concatStringsSep "," config.home.keyboard.options;
           follow_mouse = 1;
 
           sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
