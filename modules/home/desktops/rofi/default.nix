@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  pkgs,
+  vauxhall,
   ...
 }:
 
@@ -33,8 +33,8 @@ in
           alternate-urgent-foreground = mkLiteral "@urgent-foreground";
           alternate-active-foreground = mkLiteral "@active-foreground";
 
-          background = mkLiteral "#06091699";
-          lightbg = mkLiteral "#515768";
+          background = mkLiteral vauxhall.background.hex;
+          lightbg = mkLiteral vauxhall.background-highlight.hex;
           normal-background = mkLiteral "@background";
           urgent-background = mkLiteral "@background";
           active-background = mkLiteral "@background";
@@ -45,16 +45,15 @@ in
           alternate-urgent-background = mkLiteral "@urgent-background";
           alternate-active-background = mkLiteral "@active-background";
 
-          window-border-color = mkLiteral "#515768";
+          window-border-color = mkLiteral vauxhall.cyan.hex;
           border-color = mkLiteral "#51e1e9";
-          separatorcolor = mkLiteral "rgba(219, 223, 188, 100%)";
+          separatorcolor = mkLiteral vauxhall.text.hex;
           background-color = mkLiteral "rgba(0, 0, 0, 0%)";
         };
 
         "#window" = {
           background-color = mkLiteral "@background";
           border = mkLiteral "1";
-          border-radius = mkLiteral "10px";
           border-color = mkLiteral "@window-border-color";
           padding = mkLiteral "5";
         };
