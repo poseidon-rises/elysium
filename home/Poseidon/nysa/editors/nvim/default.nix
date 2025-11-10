@@ -57,6 +57,7 @@ in
           mouse = "";
           linebreak = true;
           wrap = false;
+          conceallevel = 1;
         };
 
         globals = {
@@ -132,16 +133,7 @@ in
 
             format.type = "nixfmt";
 
-            lsp = {
-              server = "nixd";
-
-              options = {
-                formatting.command = "nix fmt";
-
-                nixos.expr = "(builtins.getFlake (\"git+file://\" + lib.elysium.relativeToRoot ./.)).nixosConfigurations.Hydra.options";
-                home-manager.expr = "(builtins.getFlake (\"git+file://\" + lib.elysium.relativeToRoot ./.)).nixosConfigurations.Hydra.options.home-manager.users.type.getSubOptions []";
-              };
-            };
+            lsp.servers = [ "nixd" ];
           };
 
           lua = lib.mkIf langCfg.lua.enable {
@@ -163,12 +155,26 @@ in
 
           rust = lib.mkIf langCfg.rust.enable {
             enable = true;
-            crates.enable = true;
+            extensions.crates-nvim.enable = true;
 
             format.package = langCfg.rust.toolchain.rustfmt;
           };
 
           html.enable = true;
+
+          qml.enable = true;
+
+          sql = {
+            enable = true;
+            dialect = "sqlite";
+          };
+        };
+
+        lsp.servers.nixd.init_options = {
+          formatting.command = "nix fmt";
+
+          nixos.expr = ''(builtins.getFlake "elysium").nixosConfigurations.Hydra.options'';
+          home-manager.expr = ''(builtins.getFlake "elysium").nixosConfigurations.Hydra.options.home-manager.users.type.getSubOptions []'';
         };
 
         treesitter.grammars = [
