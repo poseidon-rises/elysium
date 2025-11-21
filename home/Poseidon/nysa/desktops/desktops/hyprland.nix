@@ -43,7 +43,12 @@ in
         ++ lib.forEach (lib.range 1 10) (id: {
           inherit id;
           default = id == 1;
-        });
+        }) 
+				++ lib.forEach (lib.range 11 15) (id: {
+					inherit id;
+					default = id == 11;
+					monitor = "HDMI-A-1";
+				});
       };
     };
 
@@ -219,6 +224,12 @@ in
           "SUPER, 8, workspace, 8"
           "SUPER, 9, workspace, 9"
           "SUPER, 0, workspace, 10"
+
+					"ALT + SUPER, 1, workspace, 11"
+					"ALT + SUPER, 2, workspace, 12"
+					"ALT + SUPER, 3, workspace, 13"
+					"ALT + SUPER, 4, workspace, 14"
+					"ALT + SUPER, 5, workspace, 15"
 
           # Move window to workspace with  Shift + Super + [0-9]
 
