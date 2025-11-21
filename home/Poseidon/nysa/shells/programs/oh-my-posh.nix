@@ -19,7 +19,46 @@ in
     programs.oh-my-posh.settings = {
       blocks = [
         {
-          type = "rprompt";
+          type = "prompt";
+          alignment = "left";
+          segments = [
+            {
+              type = "session";
+              style = "accordion";
+              leading_powerline_symbol = "";
+              foreground = "black";
+              background = "lightGreen";
+              template = " {{ if .SSHSession }} {{ end }}{{ .HostName }} ";
+            }
+            {
+              type = "session";
+              style = "accordion";
+              powerline_symbol = "";
+              foreground = "black";
+              background = "cyan";
+              template = " {{ if .Root }}󱐋{{ end }}{{ .UserName }} ";
+            }
+            {
+              type = "path";
+              style = "accordion";
+              powerline_symbol = "";
+              foreground = "black";
+              background = "lightBlue";
+              properties.style = "agnoster_short";
+            }
+            {
+              type = "jujutsu";
+              style = "accordion";
+              powerline_symbol = "";
+              foreground = "black";
+              background = "magenta";
+              template = " @{{ .ChangeID }} {{ if .Working.Changed }}{{ .Working.String }}{{ end }} ";
+              properties.fetch_status = true;
+            }
+          ];
+        }
+        {
+          type = "prompt";
           alignment = "right";
           segments = [
             {
@@ -67,44 +106,6 @@ in
           ];
         }
 
-        {
-          type = "prompt";
-          alignment = "left";
-          segments = [
-            {
-              type = "session";
-              style = "accordion";
-              leading_powerline_symbol = "";
-              foreground = "black";
-              background = "lightGreen";
-              template = " {{ if .SSHSession }} {{ end }}{{ .HostName }} ";
-            }
-            {
-              type = "session";
-              style = "accordion";
-              powerline_symbol = "";
-              foreground = "black";
-              background = "cyan";
-              template = " {{ if .Root }}󱐋{{ end }}{{ .UserName }} ";
-            }
-            {
-              type = "path";
-              style = "accordion";
-              powerline_symbol = "";
-              foreground = "black";
-              background = "lightBlue";
-              properties.style = "agnoster_short";
-            }
-            {
-              type = "jujutsu";
-              style = "accordion";
-              powerline_symbol = "";
-              foreground = "black";
-              background = "magenta";
-              properties.fetch_status = true;
-            }
-          ];
-        }
         {
           type = "prompt";
           newline = true;
