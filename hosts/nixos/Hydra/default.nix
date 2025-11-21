@@ -19,14 +19,14 @@
         height = 768;
         refreshRate = 60;
       }
-			{
-				connector = "HDMI-A-1";
-				width = 1920;
-				height = 1080;
-				refreshRate = 60;
-				x = 1366;
-				scale = 1.5;
-			}
+      {
+        connector = "HDMI-A-1";
+        width = 1920;
+        height = 1080;
+        refreshRate = 60;
+        x = 1366;
+        scale = 1.5;
+      }
     ];
   };
 

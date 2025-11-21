@@ -23,6 +23,6 @@
     font = "Lat2-Terminus16";
   };
 
-	# Stop systemd-vconsole-setup from failing during boot
+  # Stop systemd-vconsole-setup from failing during boot
   systemd.services.systemd-vconsole-setup.unitConfig.After = "local-fs.target";
 }

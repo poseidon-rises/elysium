@@ -9,12 +9,12 @@ let
   cfg = cfg'.jujutsu;
 in
 {
-	imports = lib.elysium.scanPaths ./.;
-		options.elysium.development.tools.jujutsu.enable = lib.mkEnableOption "jj VSC system" // {
+  imports = lib.elysium.scanPaths ./.;
+  options.elysium.development.tools.jujutsu.enable = lib.mkEnableOption "jj VSC system" // {
     default = cfg'.enable;
   };
 
   config = lib.mkIf cfg.enable {
-		programs.jujutsu.enable = true;
+    programs.jujutsu.enable = true;
   };
 }

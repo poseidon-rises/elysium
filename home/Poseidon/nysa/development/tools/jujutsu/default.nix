@@ -13,20 +13,18 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-		programs.jujutsu.settings = {
-			user.name = "Poseidon";
-			user.email = "softwaredevelopment.stingray177@passinbox.com";
+    programs.jujutsu.settings = {
+      user.name = "Poseidon";
+      user.email = "softwaredevelopment.stingray177@passinbox.com";
 
-			signing = {
-				behaviour = "own";
-				backend = "ssh";
+      signing = {
+        behaviour = "own";
+        backend = "ssh";
 
-				backends.ssh.allowed-signers = "~/.ssh/allowed_signers";
+        backends.ssh.allowed-signers = "~/.ssh/allowed_signers";
 
-				key = "~/.ssh/git_ed25519"; 
-			};
-
-			git.subprocess = true;
-		};
+        key = "~/.ssh/git_ed25519";
+      };
+    };
   };
 }

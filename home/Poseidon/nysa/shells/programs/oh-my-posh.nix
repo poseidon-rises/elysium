@@ -68,7 +68,6 @@ in
         }
 
         {
-          newline = true;
           type = "prompt";
           alignment = "left";
           segments = [
@@ -97,17 +96,12 @@ in
               properties.style = "agnoster_short";
             }
             {
-              type = "git";
+              type = "jujutsu";
               style = "accordion";
               powerline_symbol = "";
               foreground = "black";
               background = "magenta";
-              template = " {{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }} {{ if gt .Behind 0 }}⇣{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }} ";
-              properties = {
-                branch_icon = " ";
-                commit_icon = "@";
-                fetch_status = true;
-              };
+              properties.fetch_status = true;
             }
           ];
         }

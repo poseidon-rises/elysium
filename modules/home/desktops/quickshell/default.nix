@@ -9,8 +9,8 @@ in
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     programs.quickshell = {
-			enable = true;
-			systemd.enable = true;
-		};
+      enable = true;
+      systemd.enable = true;
+    };
   };
 }
