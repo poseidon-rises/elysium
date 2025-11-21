@@ -8,10 +8,9 @@ in
   options.elysium.desktops.quickshell.enable = lib.mkEnableOption "Quickshell UI";
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    programs.quickshell.enable = true;
-
-    elysium.desktops.exec-once.quickshell = {
-      command = lib.getExe config.programs.quickshell.package;
-    };
+    programs.quickshell = {
+			enable = true;
+			systemd.enable = true;
+		};
   };
 }
