@@ -21,6 +21,7 @@ in
               type = lib.types.nullOr lib.types.int;
               default = null;
             };
+
             name = lib.mkOption {
               type = lib.types.nullOr lib.types.str;
               default = null;
@@ -96,8 +97,8 @@ in
 
     assertions = [
       {
-        assertion = (lib.lists.findSingle (workspace: workspace.default) null null cfg.workspaces) != null;
-        message = "exactly one of `elysium.desktops.desktops.hyprland.workspaces.*` may set the default option";
+        assertion = lib.any (f: f) (lib.forEach chaos.monitors (_: lib.lists.findSingle (workspace: workspace.default) false null cfg.workspaces == null));
+        message = "exactly one of `elysium.desktops.desktops.hyprland.workspaces.*` may set the default optional per monitor";
       }
       {
         assertion = builtins.all (
