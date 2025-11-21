@@ -131,7 +131,7 @@ in
           nix = lib.mkIf langCfg.nix.enable {
             enable = true;
 
-            format.type = "nixfmt";
+            format.type = [ "nixfmt" ];
 
             lsp.servers = [ "nixd" ];
           };
@@ -144,7 +144,7 @@ in
 
           markdown = {
             enable = true;
-            format.type = "prettierd";
+            format.type = [ "prettierd" ];
             extensions.render-markdown-nvim = {
               enable = true;
               setupOpts = {
@@ -156,8 +156,6 @@ in
           rust = lib.mkIf langCfg.rust.enable {
             enable = true;
             extensions.crates-nvim.enable = true;
-
-            format.package = langCfg.rust.toolchain.rustfmt;
           };
 
           html.enable = true;
@@ -176,6 +174,8 @@ in
           nixos.expr = ''(builtins.getFlake "elysium").nixosConfigurations.Hydra.options'';
           home-manager.expr = ''(builtins.getFlake "elysium").nixosConfigurations.Hydra.options.home-manager.users.type.getSubOptions []'';
         };
+
+        formatter.conform-nvim.setupOpts.formatters.rustfmt.command = langCfg.rust.toolchain.rustfmt;
 
         treesitter.grammars = [
           pkgs.vimPlugins.nvim-treesitter.builtGrammars.latex # Add latex for render-markdown.nvim

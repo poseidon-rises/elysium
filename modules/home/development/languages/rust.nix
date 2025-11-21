@@ -15,18 +15,22 @@ in
       default = cfg'.enable;
     };
 
-    toolchain = lib.mkPackageOption pkgs "Fenix toolchain to use" {
-      default = [
-        "fenix"
-        "complete"
-        "toolchain"
-      ];
+    toolchain = lib.mkOption {
+      default = pkgs.fenix.complete;
+      description = "The fenix toolchain to use";
+      type =
+        with lib.types;
+        attrsOf (oneOf [
+          package
+          (functionTo package)
+        ]);
+      example = lib.mkLiteral "pkgs.fenix.complete";
     };
   };
 
   config = lib.mkIf cfg.enable {
     home.packages = [
-      cfg.toolchain
+      cfg.toolchain.toolchain
     ];
   };
 }
