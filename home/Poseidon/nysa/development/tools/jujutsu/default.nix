@@ -25,6 +25,8 @@ in
 
 				key = "~/.ssh/git_ed25519"; 
 			};
+
+			git.subprocess = true;
 		};
   };
 }
