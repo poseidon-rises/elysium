@@ -6,8 +6,8 @@
 }:
 
 let
-  cfg' = config.elysium.development.languages;
-  cfg = cfg'.nix;
+  cfg' = config.elysium.development;
+  cfg = cfg'.languages.nix;
 in
 {
   options.elysium.development.languages.nix.enable = lib.mkEnableOption "Nix Dev" // {

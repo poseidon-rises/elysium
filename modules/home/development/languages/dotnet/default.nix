@@ -6,8 +6,8 @@
 }:
 
 let
-  cfg' = config.elysium.development.languages;
-  cfg = cfg'.dotnet;
+  cfg' = config.elysium.development;
+  cfg = cfg'.languages.dotnet;
 in
 {
   imports = lib.elysium.scanPaths ./.;

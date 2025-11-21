@@ -6,8 +6,8 @@
 }:
 
 let
-  cfg' = config.elysium.development.languages;
-  cfg = cfg'.python;
+  cfg' = config.elysium.development;
+  cfg = cfg'.languages.python;
 
   pyPkgs = pkgs.python313;
 in

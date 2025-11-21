@@ -6,8 +6,8 @@
 }:
 
 let
-  cfg' = config.elysium.development.languages;
-  cfg = cfg'.rust;
+  cfg' = config.elysium.development;
+  cfg = cfg'.languages.rust;
 in
 {
   options.elysium.development.languages.rust = {
@@ -17,14 +17,12 @@ in
 
     toolchain = lib.mkOption {
       default = pkgs.fenix.complete;
-      description = "The fenix toolchain to use";
       type =
         with lib.types;
         attrsOf (oneOf [
           package
           (functionTo package)
         ]);
-      example = lib.mkLiteral "pkgs.fenix.complete";
     };
   };
 

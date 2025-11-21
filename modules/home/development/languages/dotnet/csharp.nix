@@ -6,8 +6,8 @@
 }:
 
 let
-  cfg'' = config.elysium.development.languages;
-  cfg' = cfg''.dotnet;
+  cfg'' = config.elysium.development;
+  cfg' = cfg''.languages.dotnet;
   cfg = cfg'.csharp;
 in
 {
@@ -17,12 +17,5 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [ pkgs.csharprepl ];
-
-    assertions = [
-      {
-        assertion = cfg'.enable;
-        message = "Dotnet must be enabled to use csharp";
-      }
-    ];
   };
 }

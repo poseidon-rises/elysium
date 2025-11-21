@@ -5,7 +5,7 @@
 }:
 
 let
-  cfg' = config.elysium.development.languages;
+  cfg' = config.elysium.development;
 in
 {
   options.elysium.development.languages.lua.enable = lib.mkEnableOption "Lua Dev" // {

@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-  cfg = config.elysium.development.tools.git;
+  cfg = config.elysium.development.git;
 in
 {
-  options.elysium.development.tools.git.enable = lib.mkEnableOption "Git" // {
+  options.elysium.development.git.enable = lib.mkEnableOption "Git" // {
     default = true;
   };
 

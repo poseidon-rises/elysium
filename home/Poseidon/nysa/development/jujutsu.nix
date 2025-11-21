@@ -4,11 +4,11 @@
   ...
 }:
 let
-  cfg' = config.nysa.Poseidon.development.tools;
-  cfg = cfg'.jujutsu;
+  cfg' = config.nysa.Poseidon.development;
+  cfg = cfg'.jj;
 in
 {
-  options.nysa.Poseidon.development.tools.jujutsu.enable = lib.mkEnableOption "Jujutsu VCS" // {
+  options.nysa.Poseidon.development.jj.enable = lib.mkEnableOption "Jujutsu VCS" // {
     default = cfg'.enable;
   };
 
